@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ExpireGuard Pro - Escalation Queue</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "error": "#ba1a1a",
+                    "surface": "#f9f9f9",
+                    "on-tertiary-container": "#bab8b8",
+                    "on-primary-fixed": "#410000",
+                    "on-error-container": "#93000a",
+                    "inverse-surface": "#2f3131",
+                    "secondary-fixed": "#ffe088",
+                    "surface-container": "#eeeeee",
+                    "on-tertiary": "#ffffff",
+                    "on-primary-fixed-variant": "#930000",
+                    "secondary": "#735c00",
+                    "tertiary": "#333333",
+                    "primary-fixed": "#ffdad4",
+                    "surface-container-lowest": "#ffffff",
+                    "inverse-on-surface": "#f1f1f1",
+                    "tertiary-container": "#4a4949",
+                    "secondary-fixed-dim": "#e9c349",
+                    "surface-bright": "#f9f9f9",
+                    "surface-dim": "#dadada",
+                    "on-background": "#1a1c1c",
+                    "on-tertiary-fixed": "#1c1b1b",
+                    "on-secondary-container": "#745c00",
+                    "background": "#f9f9f9",
+                    "on-primary": "#ffffff",
+                    "surface-container-highest": "#e2e2e2",
+                    "primary": "#6e0000",
+                    "tertiary-fixed": "#e5e2e1",
+                    "outline": "#8f706b",
+                    "inverse-primary": "#ffb4a8",
+                    "on-secondary-fixed-variant": "#574500",
+                    "on-tertiary-fixed-variant": "#474746",
+                    "primary-container": "#990000",
+                    "error-container": "#ffdad6",
+                    "tertiary-fixed-dim": "#c8c6c5",
+                    "on-secondary": "#ffffff",
+                    "surface-container-high": "#e8e8e8",
+                    "secondary-container": "#fed65b",
+                    "surface-tint": "#b82014",
+                    "on-primary-container": "#ffa092",
+                    "surface-variant": "#e2e2e2",
+                    "on-error": "#ffffff",
+                    "on-surface-variant": "#5b403c",
+                    "primary-fixed-dim": "#ffb4a8",
+                    "surface-container-low": "#f3f3f3",
+                    "on-secondary-fixed": "#241a00",
+                    "outline-variant": "#e4beb8",
+                    "on-surface": "#1a1c1c"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "margin-desktop": "32px",
+                    "container-max": "1440px",
+                    "margin-mobile": "16px",
+                    "gutter": "16px",
+                    "base": "4px"
+            },
+            "fontFamily": {
+                    "body-sm": [
+                            "Inter"
+                    ],
+                    "display-lg-mobile": [
+                            "Inter"
+                    ],
+                    "display-lg": [
+                            "Inter"
+                    ],
+                    "headline-md": [
+                            "Inter"
+                    ],
+                    "table-data": [
+                            "Inter"
+                    ],
+                    "body-md": [
+                            "Inter"
+                    ],
+                    "label-caps": [
+                            "JetBrains Mono"
+                    ]
+            },
+            "fontSize": {
+                    "body-sm": [
+                            "13px",
+                            {
+                                    "lineHeight": "18px",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "display-lg-mobile": [
+                            "24px",
+                            {
+                                    "lineHeight": "32px",
+                                    "fontWeight": "700"
+                            }
+                    ],
+                    "display-lg": [
+                            "32px",
+                            {
+                                    "lineHeight": "40px",
+                                    "letterSpacing": "-0.02em",
+                                    "fontWeight": "700"
+                            }
+                    ],
+                    "headline-md": [
+                            "20px",
+                            {
+                                    "lineHeight": "28px",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "table-data": [
+                            "14px",
+                            {
+                                    "lineHeight": "20px",
+                                    "fontWeight": "500"
+                            }
+                    ],
+                    "body-md": [
+                            "14px",
+                            {
+                                    "lineHeight": "20px",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "label-caps": [
+                            "11px",
+                            {
+                                    "lineHeight": "16px",
+                                    "letterSpacing": "0.05em",
+                                    "fontWeight": "600"
+                            }
+                    ]
+            }
+    },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-family: 'Material Symbols Outlined';
+            font-weight: normal;
+            font-style: normal;
+            font-size: 24px;
+            line-height: 1;
+            letter-spacing: normal;
+            text-transform: none;
+            display: inline-block;
+            white-space: nowrap;
+            word-wrap: normal;
+            direction: ltr;
+            -webkit-font-feature-settings: 'liga';
+            -webkit-font-smoothing: antialiased;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md text-body-md h-screen flex overflow-hidden">
+<!-- SideNavBar -->
+<nav class="hidden md:flex bg-surface-container-low border-r border-outline-variant flex-col h-full py-6 w-64 docked left-0 flex-shrink-0">
+<div class="px-6 mb-8">
+<h1 class="text-headline-md font-headline-md font-bold text-primary">Warehouse Alpha</h1>
+<p class="text-on-surface-variant text-body-sm font-body-sm mt-1">Manager View</p>
+</div>
+<div class="px-4 mb-6">
+<button class="w-full bg-primary text-on-primary py-3 px-4 rounded font-table-data text-table-data hover:bg-primary-container transition-colors flex justify-center items-center gap-2 h-12">
+<span class="material-symbols-outlined text-[20px]">add</span>
+                Register Product
+            </button>
+</div>
+<div class="flex-1 flex flex-col gap-1 px-2">
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-highest transition-colors rounded" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span>Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 bg-transparent text-secondary border-l-4 border-secondary rounded-r" href="#">
+<span class="material-symbols-outlined" data-icon="inventory_2" style="font-variation-settings: 'FILL' 1;">inventory_2</span>
+<span class="font-table-data">Inventory</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-highest transition-colors rounded" href="#">
+<span class="material-symbols-outlined" data-icon="qr_code_scanner">qr_code_scanner</span>
+<span>Scanner</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-highest transition-colors rounded" href="#">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+<span>Reports</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-highest transition-colors rounded" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span>Settings</span>
+</a>
+</div>
+<div class="mt-auto flex flex-col gap-1 px-2">
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-highest transition-colors rounded" href="#">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+<span>Support</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-highest transition-colors rounded" href="#">
+<span class="material-symbols-outlined" data-icon="logout">logout</span>
+<span>Logout</span>
+</a>
+</div>
+</nav>
+<!-- Main Content Area -->
+<main class="flex-1 flex flex-col h-full overflow-hidden">
+<!-- TopNavBar (Mobile only since SideNav is active on desktop) -->
+<header class="md:hidden bg-surface border-b border-outline-variant flex justify-between items-center w-full px-margin-mobile h-16 flex-shrink-0">
+<div class="text-headline-md font-headline-md font-bold text-primary">ExpireGuard Pro</div>
+<div class="flex items-center gap-4 text-primary">
+<button class="hover:text-primary-container transition-colors"><span class="material-symbols-outlined" data-icon="notifications">notifications</span></button>
+<button class="hover:text-primary-container transition-colors"><span class="material-symbols-outlined" data-icon="account_circle">account_circle</span></button>
+<button class="hover:text-primary-container transition-colors"><span class="material-symbols-outlined" data-icon="menu">menu</span></button>
+</div>
+</header>
+<div class="flex-1 overflow-y-auto p-4 md:p-margin-desktop bg-surface">
+<div class="max-w-container-max mx-auto">
+<!-- Header -->
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
+<div>
+<h2 class="text-display-lg-mobile md:text-display-lg font-display-lg-mobile md:font-display-lg text-on-background">Escalation Queue</h2>
+<p class="text-on-surface-variant text-body-md font-body-md mt-2">Supervisor overview of critical inventory alerts requiring immediate action.</p>
+</div>
+</div>
+<!-- Filters & Search -->
+<div class="flex flex-col md:flex-row justify-between items-center gap-4 mb-6 bg-surface-container-lowest p-4 border border-outline-variant rounded">
+<div class="flex items-center gap-2 w-full md:w-auto">
+<button class="px-4 py-2 bg-primary text-on-primary rounded font-table-data text-table-data transition-colors">Open (12)</button>
+<button class="px-4 py-2 border border-outline-variant text-on-surface-variant hover:bg-surface-container-highest rounded font-table-data text-table-data transition-colors">In Review (5)</button>
+<button class="px-4 py-2 border border-outline-variant text-on-surface-variant hover:bg-surface-container-highest rounded font-table-data text-table-data transition-colors">Resolved</button>
+</div>
+<div class="w-full md:w-64 relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 transform -translate-y-1/2 text-on-surface-variant text-[20px]">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-surface-container-lowest border border-outline-variant rounded focus:outline-none focus:border-secondary focus:ring-1 focus:ring-secondary text-body-md font-body-md text-on-background placeholder:text-on-surface-variant" placeholder="Search escalations..." type="text"/>
+</div>
+</div>
+<!-- Data Table (Desktop) / Cards (Mobile) -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded overflow-hidden">
+<!-- Desktop Table Header -->
+<div class="hidden md:grid grid-cols-12 gap-4 p-4 bg-surface-container border-b border-outline-variant font-label-caps text-label-caps text-on-surface-variant tracking-wider">
+<div class="col-span-3">ITEM NAME</div>
+<div class="col-span-2">URGENCY</div>
+<div class="col-span-2">ESCALATED BY</div>
+<div class="col-span-3">REASON / NOTE</div>
+<div class="col-span-2 text-right">ACTIONS</div>
+</div>
+<!-- List Items -->
+<div class="divide-y divide-outline-variant">
+<!-- Item 1 (Critical) -->
+<div class="flex flex-col md:grid md:grid-cols-12 gap-4 p-4 hover:bg-surface-bright transition-colors border-l-2 border-transparent hover:border-secondary group">
+<div class="col-span-3 flex flex-col justify-center">
+<span class="font-table-data text-table-data text-on-background font-semibold">EpiPen Auto-Injector 0.3mg</span>
+<span class="text-body-sm font-body-sm text-on-surface-variant">SKU: EP-8821-A</span>
+<span class="text-body-sm font-body-sm text-on-surface-variant md:hidden mt-1">10 mins ago</span>
+</div>
+<div class="col-span-2 flex items-center mt-2 md:mt-0">
+<span class="inline-flex items-center px-2 py-1 rounded-full bg-error-container text-on-error-container font-label-caps text-label-caps gap-1">
+<span class="material-symbols-outlined text-[14px]">warning</span>
+                                    CRITICAL
+                                </span>
+</div>
+<div class="col-span-2 flex items-center text-body-md font-body-md text-on-background mt-2 md:mt-0">
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 rounded-full bg-surface-container-highest flex items-center justify-center text-[10px] font-bold text-on-surface-variant">JD</div>
+<span>J. Doe (Floor 1)</span>
+</div>
+</div>
+<div class="col-span-3 flex items-center text-body-sm font-body-sm text-on-surface-variant mt-2 md:mt-0">
+<p class="line-clamp-2">Batch found with compromised seals. Entire pallet needs quarantine immediately.</p>
+</div>
+<div class="col-span-2 flex items-center justify-start md:justify-end gap-2 mt-4 md:mt-0">
+<button class="p-2 text-on-surface-variant hover:text-secondary transition-colors rounded hover:bg-surface-container-highest" title="Comment">
+<span class="material-symbols-outlined text-[20px]">chat_bubble</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:text-primary transition-colors rounded hover:bg-surface-container-highest" title="Reassign">
+<span class="material-symbols-outlined text-[20px]">person_add</span>
+</button>
+<button class="px-3 py-1.5 bg-primary text-on-primary rounded font-table-data text-table-data hover:bg-primary-container transition-colors min-h-[48px] md:min-h-0 whitespace-nowrap">
+                                    Resolve
+                                </button>
+</div>
+</div>
+<!-- Item 2 (High) -->
+<div class="flex flex-col md:grid md:grid-cols-12 gap-4 p-4 hover:bg-surface-bright transition-colors border-l-2 border-transparent hover:border-secondary group">
+<div class="col-span-3 flex flex-col justify-center">
+<span class="font-table-data text-table-data text-on-background font-semibold">Amoxicillin 500mg Capsules</span>
+<span class="text-body-sm font-body-sm text-on-surface-variant">SKU: AMX-500-C</span>
+<span class="text-body-sm font-body-sm text-on-surface-variant md:hidden mt-1">1 hr ago</span>
+</div>
+<div class="col-span-2 flex items-center mt-2 md:mt-0">
+<span class="inline-flex items-center px-2 py-1 rounded-full bg-primary-fixed text-on-primary-fixed font-label-caps text-label-caps gap-1">
+<span class="material-symbols-outlined text-[14px]">error</span>
+                                    HIGH
+                                </span>
+</div>
+<div class="col-span-2 flex items-center text-body-md font-body-md text-on-background mt-2 md:mt-0">
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 rounded-full bg-surface-container-highest flex items-center justify-center text-[10px] font-bold text-on-surface-variant">MS</div>
+<span>M. Smith (Cold Storage)</span>
+</div>
+</div>
+<div class="col-span-3 flex items-center text-body-sm font-body-sm text-on-surface-variant mt-2 md:mt-0">
+<p class="line-clamp-2">Temperature log shows fluctuation beyond safe limits for 45 minutes.</p>
+</div>
+<div class="col-span-2 flex items-center justify-start md:justify-end gap-2 mt-4 md:mt-0">
+<button class="p-2 text-on-surface-variant hover:text-secondary transition-colors rounded hover:bg-surface-container-highest" title="Comment">
+<span class="material-symbols-outlined text-[20px]">chat_bubble</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:text-primary transition-colors rounded hover:bg-surface-container-highest" title="Reassign">
+<span class="material-symbols-outlined text-[20px]">person_add</span>
+</button>
+<button class="px-3 py-1.5 bg-transparent border border-secondary text-secondary rounded font-table-data text-table-data hover:bg-secondary hover:text-on-secondary transition-colors min-h-[48px] md:min-h-0 whitespace-nowrap">
+                                    Review
+                                </button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>

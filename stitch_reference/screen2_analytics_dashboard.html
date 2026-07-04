@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ExpireGuard Pro - Reports</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "error": "#ba1a1a",
+                        "surface": "#f9f9f9",
+                        "on-tertiary-container": "#bab8b8",
+                        "on-primary-fixed": "#410000",
+                        "on-error-container": "#93000a",
+                        "inverse-surface": "#2f3131",
+                        "secondary-fixed": "#ffe088",
+                        "surface-container": "#eeeeee",
+                        "on-tertiary": "#ffffff",
+                        "on-primary-fixed-variant": "#930000",
+                        "secondary": "#735c00",
+                        "tertiary": "#333333",
+                        "primary-fixed": "#ffdad4",
+                        "surface-container-lowest": "#ffffff",
+                        "inverse-on-surface": "#f1f1f1",
+                        "tertiary-container": "#4a4949",
+                        "secondary-fixed-dim": "#e9c349",
+                        "surface-bright": "#f9f9f9",
+                        "surface-dim": "#dadada",
+                        "on-background": "#1a1c1c",
+                        "on-tertiary-fixed": "#1c1b1b",
+                        "on-secondary-container": "#745c00",
+                        "background": "#f9f9f9",
+                        "on-primary": "#ffffff",
+                        "surface-container-highest": "#e2e2e2",
+                        "primary": "#6e0000",
+                        "tertiary-fixed": "#e5e2e1",
+                        "outline": "#8f706b",
+                        "inverse-primary": "#ffb4a8",
+                        "on-secondary-fixed-variant": "#574500",
+                        "on-tertiary-fixed-variant": "#474746",
+                        "primary-container": "#990000",
+                        "error-container": "#ffdad6",
+                        "tertiary-fixed-dim": "#c8c6c5",
+                        "on-secondary": "#ffffff",
+                        "surface-container-high": "#e8e8e8",
+                        "secondary-container": "#fed65b",
+                        "surface-tint": "#b82014",
+                        "on-primary-container": "#ffa092",
+                        "surface-variant": "#e2e2e2",
+                        "on-error": "#ffffff",
+                        "on-surface-variant": "#5b403c",
+                        "primary-fixed-dim": "#ffb4a8",
+                        "surface-container-low": "#f3f3f3",
+                        "on-secondary-fixed": "#241a00",
+                        "outline-variant": "#e4beb8",
+                        "on-surface": "#1a1c1c"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "margin-desktop": "32px",
+                        "container-max": "1440px",
+                        "margin-mobile": "16px",
+                        "gutter": "16px",
+                        "base": "4px"
+                    },
+                    "fontFamily": {
+                        "body-sm": ["Inter"],
+                        "display-lg-mobile": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "table-data": ["Inter"],
+                        "body-md": ["Inter"],
+                        "label-caps": ["JetBrains Mono"]
+                    },
+                    "fontSize": {
+                        "body-sm": ["13px", { "lineHeight": "18px", "fontWeight": "400" }],
+                        "display-lg-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "700" }],
+                        "display-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "headline-md": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "table-data": ["14px", { "lineHeight": "20px", "fontWeight": "500" }],
+                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "label-caps": ["11px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        /* Hide scrollbar for clean look in sidebars if needed, though mostly using built-in */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #e5e5e5; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #d4d4d4; }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md antialiased overflow-x-hidden min-h-screen flex">
+<!-- Mobile Top Navigation (Hidden on Desktop) -->
+<header class="md:hidden flex justify-between items-center w-full px-margin-mobile h-16 bg-surface dark:bg-surface-container border-b border-outline-variant dark:border-outline fixed top-0 z-50">
+<div class="text-headline-md font-headline-md font-bold text-primary dark:text-primary-fixed">
+            ExpireGuard Pro
+        </div>
+<div class="flex gap-4">
+<span class="material-symbols-outlined text-primary dark:text-primary-fixed cursor-pointer">search</span>
+<span class="material-symbols-outlined text-primary dark:text-primary-fixed cursor-pointer">notifications</span>
+<span class="material-symbols-outlined text-primary dark:text-primary-fixed cursor-pointer">account_circle</span>
+</div>
+</header>
+<!-- SideNavBar (Desktop Only) -->
+<nav class="hidden md:flex flex-col h-screen w-64 docked left-0 bg-surface-container-low dark:bg-surface-container-lowest border-r border-outline-variant dark:border-outline fixed z-40 py-6 shrink-0">
+<!-- Header -->
+<div class="px-6 mb-8">
+<div class="text-headline-md font-headline-md font-bold text-primary dark:text-primary-fixed mb-1">
+                Warehouse Alpha
+            </div>
+<div class="font-body-sm text-body-sm text-on-surface-variant">Manager View</div>
+</div>
+<!-- CTA -->
+<div class="px-6 mb-8">
+<button class="w-full bg-primary text-on-primary font-body-md text-body-md py-3 rounded hover:bg-primary-container transition-colors">
+                Register Product
+            </button>
+</div>
+<!-- Main Tabs -->
+<div class="flex-1 overflow-y-auto">
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-on-tertiary-container hover:bg-surface-container-highest dark:hover:bg-tertiary-container transition-colors cursor-pointer group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary dark:group-hover:text-primary-fixed">dashboard</span>
+<span class="font-body-md text-body-md group-hover:text-primary dark:group-hover:text-primary-fixed transition-colors">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-on-tertiary-container hover:bg-surface-container-highest dark:hover:bg-tertiary-container transition-colors cursor-pointer group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary dark:group-hover:text-primary-fixed">inventory_2</span>
+<span class="font-body-md text-body-md group-hover:text-primary dark:group-hover:text-primary-fixed transition-colors">Inventory</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-on-tertiary-container hover:bg-surface-container-highest dark:hover:bg-tertiary-container transition-colors cursor-pointer group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary dark:group-hover:text-primary-fixed">qr_code_scanner</span>
+<span class="font-body-md text-body-md group-hover:text-primary dark:group-hover:text-primary-fixed transition-colors">Scanner</span>
+</a>
+<!-- Active Tab -->
+<a class="flex items-center gap-3 px-4 py-3 bg-transparent text-secondary dark:text-secondary-fixed border-l-4 border-secondary opacity-80 scale-95 transition-all duration-150 cursor-default" href="#">
+<span class="material-symbols-outlined">analytics</span>
+<span class="font-body-md text-body-md font-bold">Reports</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-on-tertiary-container hover:bg-surface-container-highest dark:hover:bg-tertiary-container transition-colors cursor-pointer group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary dark:group-hover:text-primary-fixed">settings</span>
+<span class="font-body-md text-body-md group-hover:text-primary dark:group-hover:text-primary-fixed transition-colors">Settings</span>
+</a>
+</div>
+<!-- Footer Tabs -->
+<div class="mt-auto border-t border-outline-variant dark:border-outline pt-4">
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-on-tertiary-container hover:bg-surface-container-highest dark:hover:bg-tertiary-container transition-colors cursor-pointer group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary dark:group-hover:text-primary-fixed">help</span>
+<span class="font-body-md text-body-md group-hover:text-primary dark:group-hover:text-primary-fixed transition-colors">Support</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-on-tertiary-container hover:bg-surface-container-highest dark:hover:bg-tertiary-container transition-colors cursor-pointer group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary dark:group-hover:text-primary-fixed">logout</span>
+<span class="font-body-md text-body-md group-hover:text-primary dark:group-hover:text-primary-fixed transition-colors">Logout</span>
+</a>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="flex-1 md:ml-64 mt-16 md:mt-0 p-margin-mobile md:p-margin-desktop bg-background max-w-container-max mx-auto w-full">
+<header class="mb-8 flex justify-between items-end">
+<div>
+<h1 class="font-display-lg-mobile md:font-display-lg text-display-lg-mobile md:text-display-lg text-on-surface mb-2">Analytics Overview</h1>
+<p class="font-body-md text-body-md text-on-surface-variant">Last updated: Today, 08:00 AM</p>
+</div>
+<div class="hidden sm:flex gap-2">
+<button class="px-4 py-2 bg-transparent border border-outline rounded text-on-surface-variant font-body-md text-body-md hover:bg-surface-container-highest transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined" style="font-size: 18px;">download</span> Export
+                </button>
+</div>
+</header>
+<!-- Summary KPI Cards -->
+<section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-gutter mb-8">
+<!-- Card 1 -->
+<div class="bg-surface border border-outline-variant p-4 rounded flex flex-col justify-between relative overflow-hidden group hover:border-secondary transition-colors">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-error"></div>
+<div class="flex justify-between items-start mb-4 pl-2">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase">Value at Risk</span>
+<span class="material-symbols-outlined text-secondary text-lg opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer">open_in_new</span>
+</div>
+<div class="pl-2">
+<div class="font-display-lg-mobile md:font-display-lg text-display-lg-mobile md:text-display-lg text-error mb-1">$4,200</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-error" style="font-size: 14px;">trending_up</span> +12% from last week
+                    </div>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="bg-surface border border-outline-variant p-4 rounded flex flex-col justify-between relative group hover:border-secondary transition-colors">
+<div class="flex justify-between items-start mb-4">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase">Total Cleared</span>
+<span class="material-symbols-outlined text-secondary text-lg opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer">open_in_new</span>
+</div>
+<div>
+<div class="font-display-lg-mobile md:font-display-lg text-display-lg-mobile md:text-display-lg text-on-surface mb-1">850 <span class="text-headline-md font-headline-md text-on-surface-variant">units</span></div>
+<div class="font-body-sm text-body-sm text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-surface-tint" style="font-size: 14px; transform: scaleY(-1);">trending_down</span> -5% from last week
+                    </div>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="bg-surface border border-outline-variant p-4 rounded flex flex-col justify-between relative group hover:border-secondary transition-colors">
+<div class="flex justify-between items-start mb-4">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase">Total Lost</span>
+<span class="material-symbols-outlined text-secondary text-lg opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer">open_in_new</span>
+</div>
+<div>
+<div class="font-display-lg-mobile md:font-display-lg text-display-lg-mobile md:text-display-lg text-on-surface mb-1">$210</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-surface-tint" style="font-size: 14px;">trending_up</span> +2% from last week
+                    </div>
+</div>
+</div>
+<!-- Card 4 -->
+<div class="bg-surface border border-outline-variant p-4 rounded flex flex-col justify-between relative group hover:border-secondary transition-colors">
+<div class="flex justify-between items-start mb-4">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase">Avg. Time-to-Clear</span>
+<span class="material-symbols-outlined text-secondary text-lg opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer">open_in_new</span>
+</div>
+<div>
+<div class="font-display-lg-mobile md:font-display-lg text-display-lg-mobile md:text-display-lg text-on-surface mb-1">1.2 <span class="text-headline-md font-headline-md text-on-surface-variant">days</span></div>
+<div class="font-body-sm text-body-sm text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-on-surface-variant" style="font-size: 14px;">horizontal_rule</span> Steady
+                    </div>
+</div>
+</div>
+</section>
+<!-- Main Dashboard Grids -->
+<section class="grid grid-cols-1 lg:grid-cols-12 gap-gutter mb-8">
+<!-- Left Column: Charts -->
+<div class="lg:col-span-8 flex flex-col gap-gutter">
+<!-- Bar Chart: Expired Stock by Category -->
+<div class="bg-surface border border-outline-variant rounded p-6">
+<div class="flex justify-between items-center mb-6">
+<h2 class="font-headline-md text-headline-md text-on-surface">Expired Stock Value by Category</h2>
+<button class="text-secondary hover:bg-surface-container-highest p-1 rounded transition-colors"><span class="material-symbols-outlined">more_vert</span></button>
+</div>
+<!-- CSS Mock Chart -->
+<div class="h-64 flex items-end gap-2 sm:gap-4 relative pt-8 border-b border-outline-variant">
+<!-- Y-axis labels -->
+<div class="absolute left-0 top-0 bottom-0 flex flex-col justify-between text-label-caps font-label-caps text-on-surface-variant pb-6">
+<span>$1k</span><span>$750</span><span>$500</span><span>$250</span><span>$0</span>
+</div>
+<div class="ml-10 flex-1 flex items-end justify-around h-full gap-2">
+<!-- Dairy -->
+<div class="w-full max-w-[40px] flex flex-col items-center group relative cursor-pointer">
+<div class="absolute -top-10 opacity-0 group-hover:opacity-100 bg-tertiary text-on-tertiary text-label-caps font-label-caps px-2 py-1 rounded transition-opacity whitespace-nowrap z-10">$850</div>
+<div class="w-full bg-error rounded-t" style="height: 85%;"></div>
+<span class="text-label-caps font-label-caps text-on-surface-variant mt-2 absolute -bottom-6">Dairy</span>
+</div>
+<!-- Bakery -->
+<div class="w-full max-w-[40px] flex flex-col items-center group relative cursor-pointer">
+<div class="absolute -top-10 opacity-0 group-hover:opacity-100 bg-tertiary text-on-tertiary text-label-caps font-label-caps px-2 py-1 rounded transition-opacity whitespace-nowrap z-10">$420</div>
+<div class="w-full bg-surface-tint rounded-t" style="height: 42%;"></div>
+<span class="text-label-caps font-label-caps text-on-surface-variant mt-2 absolute -bottom-6">Bakery</span>
+</div>
+<!-- Meat -->
+<div class="w-full max-w-[40px] flex flex-col items-center group relative cursor-pointer">
+<div class="absolute -top-10 opacity-0 group-hover:opacity-100 bg-tertiary text-on-tertiary text-label-caps font-label-caps px-2 py-1 rounded transition-opacity whitespace-nowrap z-10">$920</div>
+<div class="w-full bg-primary-container rounded-t" style="height: 92%;"></div>
+<span class="text-label-caps font-label-caps text-on-surface-variant mt-2 absolute -bottom-6">Meat</span>
+</div>
+<!-- Produce -->
+<div class="w-full max-w-[40px] flex flex-col items-center group relative cursor-pointer">
+<div class="absolute -top-10 opacity-0 group-hover:opacity-100 bg-tertiary text-on-tertiary text-label-caps font-label-caps px-2 py-1 rounded transition-opacity whitespace-nowrap z-10">$310</div>
+<div class="w-full bg-secondary-fixed-dim rounded-t" style="height: 31%;"></div>
+<span class="text-label-caps font-label-caps text-on-surface-variant mt-2 absolute -bottom-6">Produce</span>
+</div>
+<!-- Deli -->
+<div class="w-full max-w-[40px] flex flex-col items-center group relative cursor-pointer">
+<div class="absolute -top-10 opacity-0 group-hover:opacity-100 bg-tertiary text-on-tertiary text-label-caps font-label-caps px-2 py-1 rounded transition-opacity whitespace-nowrap z-10">$150</div>
+<div class="w-full bg-surface-dim rounded-t" style="height: 15%;"></div>
+<span class="text-label-caps font-label-caps text-on-surface-variant mt-2 absolute -bottom-6">Deli</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Line Chart: Loss Trend -->
+<div class="bg-surface border border-outline-variant rounded p-6">
+<div class="flex justify-between items-center mb-6">
+<h2 class="font-headline-md text-headline-md text-on-surface">Loss Trend (Last 6 Months)</h2>
+<button class="text-secondary hover:bg-surface-container-highest p-1 rounded transition-colors"><span class="material-symbols-outlined">more_vert</span></button>
+</div>
+<!-- Minimalist Area Chart Mockup via SVG -->
+<div class="h-48 w-full relative">
+<svg class="w-full h-full preserve-3d" preserveaspectratio="none" viewbox="0 0 100 50">
+<defs>
+<lineargradient id="lossGradient" x1="0" x2="0" y1="0" y2="1">
+<stop offset="0%" stop-color="#ba1a1a" stop-opacity="0.2"></stop>
+<stop offset="100%" stop-color="#ba1a1a" stop-opacity="0"></stop>
+</lineargradient>
+</defs>
+<!-- Grid lines -->
+<line stroke="#e5e5e5" stroke-width="0.5" x1="0" x2="100" y1="10" y2="10"></line>
+<line stroke="#e5e5e5" stroke-width="0.5" x1="0" x2="100" y1="25" y2="25"></line>
+<line stroke="#e5e5e5" stroke-width="0.5" x1="0" x2="100" y1="40" y2="40"></line>
+<!-- Area & Line -->
+<path d="M 0,40 L 20,35 L 40,20 L 60,28 L 80,15 L 100,5 L 100,50 L 0,50 Z" fill="url(#lossGradient)"></path>
+<polyline fill="none" points="0,40 20,35 40,20 60,28 80,15 100,5" stroke="#ba1a1a" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></polyline>
+<!-- Data Points -->
+<circle class="cursor-pointer hover:r-2 transition-all" cx="20" cy="35" fill="#ffffff" r="1.5" stroke="#ba1a1a" stroke-width="1"></circle>
+<circle class="cursor-pointer hover:r-2 transition-all" cx="40" cy="20" fill="#ffffff" r="1.5" stroke="#ba1a1a" stroke-width="1"></circle>
+<circle class="cursor-pointer hover:r-2 transition-all" cx="60" cy="28" fill="#ffffff" r="1.5" stroke="#ba1a1a" stroke-width="1"></circle>
+<circle class="cursor-pointer hover:r-2 transition-all" cx="80" cy="15" fill="#ffffff" r="1.5" stroke="#ba1a1a" stroke-width="1"></circle>
+<circle class="cursor-pointer hover:r-2 transition-all" cx="100" cy="5" fill="#ffffff" r="1.5" stroke="#ba1a1a" stroke-width="1"></circle>
+</svg>
+<div class="flex justify-between mt-2 text-label-caps font-label-caps text-on-surface-variant">
+<span>Jul</span><span>Aug</span><span>Sep</span><span>Oct</span><span>Nov</span><span>Dec</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column -->
+<div class="lg:col-span-4 flex flex-col gap-gutter">
+<!-- Donut Chart: Inventory Urgency -->
+<div class="bg-surface border border-outline-variant rounded p-6">
+<div class="flex justify-between items-center mb-6">
+<h2 class="font-headline-md text-headline-md text-on-surface">Urgency Breakdown</h2>
+<button class="text-secondary hover:bg-surface-container-highest p-1 rounded transition-colors"><span class="material-symbols-outlined">more_vert</span></button>
+</div>
+<div class="flex flex-col items-center justify-center">
+<!-- CSS Donut Chart Mockup using conic-gradient -->
+<div class="relative w-48 h-48 rounded-full flex items-center justify-center mb-6" style="background: conic-gradient(
+                                #ba1a1a 0deg 90deg, 
+                                #fed65b 90deg 210deg, 
+                                #f3f3f3 210deg 360deg
+                             );">
+<!-- Inner circle to make it a donut -->
+<div class="absolute w-32 h-32 bg-surface rounded-full flex flex-col items-center justify-center shadow-inner">
+<span class="font-display-lg text-display-lg text-on-surface">850</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase">Total Units</span>
+</div>
+</div>
+<!-- Legend -->
+<div class="w-full flex flex-col gap-3">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<div class="w-3 h-3 rounded-full bg-error"></div>
+<span class="font-table-data text-table-data text-on-surface">Critical (0-2 Days)</span>
+</div>
+<span class="font-table-data text-table-data text-on-surface-variant">25%</span>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<div class="w-3 h-3 rounded-full bg-secondary-container"></div>
+<span class="font-table-data text-table-data text-on-surface">Warning (3-7 Days)</span>
+</div>
+<span class="font-table-data text-table-data text-on-surface-variant">33%</span>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<div class="w-3 h-3 rounded-full bg-surface-container-low border border-outline-variant"></div>
+<span class="font-table-data text-table-data text-on-surface">Safe (8+ Days)</span>
+</div>
+<span class="font-table-data text-table-data text-on-surface-variant">42%</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Data Table Section -->
+<section class="bg-surface border border-outline-variant rounded mb-8 overflow-hidden">
+<div class="p-6 border-b border-outline-variant flex justify-between items-center bg-surface-bright">
+<h2 class="font-headline-md text-headline-md text-on-surface">Top 5 Loss Products</h2>
+<div class="flex gap-2">
+<button class="text-secondary hover:bg-surface-container-highest p-2 rounded transition-colors text-body-sm font-body-sm flex items-center gap-1 border border-outline-variant">
+<span class="material-symbols-outlined" style="font-size: 16px;">filter_list</span> Filter
+                    </button>
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse min-w-[600px]">
+<thead>
+<tr class="bg-surface-container-low border-b border-outline-variant">
+<th class="p-4 font-label-caps text-label-caps text-on-surface-variant uppercase w-12 text-center">#</th>
+<th class="p-4 font-label-caps text-label-caps text-on-surface-variant uppercase">Product Name</th>
+<th class="p-4 font-label-caps text-label-caps text-on-surface-variant uppercase">Category</th>
+<th class="p-4 font-label-caps text-label-caps text-on-surface-variant uppercase text-right">Units Lost</th>
+<th class="p-4 font-label-caps text-label-caps text-on-surface-variant uppercase text-right">Value Impact</th>
+<th class="p-4 font-label-caps text-label-caps text-on-surface-variant uppercase text-center">Trend</th>
+</tr>
+</thead>
+<tbody class="font-table-data text-table-data">
+<!-- Row 1: High Urgency -->
+<tr class="border-b border-outline-variant hover:border-l-[3px] hover:border-l-secondary hover:-ml-[3px] group transition-all cursor-pointer bg-error/5">
+<td class="p-4 text-center text-on-surface-variant group-hover:text-secondary">1</td>
+<td class="p-4 text-on-surface font-semibold">Premium Wagyu Beef Ribeye</td>
+<td class="p-4 text-on-surface-variant">Meat</td>
+<td class="p-4 text-right">14</td>
+<td class="p-4 text-right text-error font-semibold">$840.00</td>
+<td class="p-4 text-center">
+<span class="material-symbols-outlined text-error" style="font-size: 18px;">trending_up</span>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="border-b border-outline-variant hover:border-l-[3px] hover:border-l-secondary hover:-ml-[3px] group transition-all cursor-pointer">
+<td class="p-4 text-center text-on-surface-variant group-hover:text-secondary">2</td>
+<td class="p-4 text-on-surface">Organic Avocados (Pack)</td>
+<td class="p-4 text-on-surface-variant">Produce</td>
+<td class="p-4 text-right">42</td>
+<td class="p-4 text-right">$210.00</td>
+<td class="p-4 text-center">
+<span class="material-symbols-outlined text-error" style="font-size: 18px;">trending_up</span>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="border-b border-outline-variant hover:border-l-[3px] hover:border-l-secondary hover:-ml-[3px] group transition-all cursor-pointer">
+<td class="p-4 text-center text-on-surface-variant group-hover:text-secondary">3</td>
+<td class="p-4 text-on-surface">Artisan Sourdough Loaf</td>
+<td class="p-4 text-on-surface-variant">Bakery</td>
+<td class="p-4 text-right">38</td>
+<td class="p-4 text-right">$190.00</td>
+<td class="p-4 text-center">
+<span class="material-symbols-outlined text-on-surface-variant" style="font-size: 18px;">horizontal_rule</span>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="border-b border-outline-variant hover:border-l-[3px] hover:border-l-secondary hover:-ml-[3px] group transition-all cursor-pointer">
+<td class="p-4 text-center text-on-surface-variant group-hover:text-secondary">4</td>
+<td class="p-4 text-on-surface">Whole Milk 1 Gal</td>
+<td class="p-4 text-on-surface-variant">Dairy</td>
+<td class="p-4 text-right">25</td>
+<td class="p-4 text-right">$125.00</td>
+<td class="p-4 text-center">
+<span class="material-symbols-outlined text-surface-tint" style="font-size: 18px; transform: scaleY(-1);">trending_down</span>
+</td>
+</tr>
+<!-- Row 5 -->
+<tr class="hover:border-l-[3px] hover:border-l-secondary hover:-ml-[3px] group transition-all cursor-pointer">
+<td class="p-4 text-center text-on-surface-variant group-hover:text-secondary">5</td>
+<td class="p-4 text-on-surface">Fresh Atlantic Salmon</td>
+<td class="p-4 text-on-surface-variant">Meat/Seafood</td>
+<td class="p-4 text-right">5</td>
+<td class="p-4 text-right">$110.00</td>
+<td class="p-4 text-center">
+<span class="material-symbols-outlined text-on-surface-variant" style="font-size: 18px;">horizontal_rule</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="p-4 border-t border-outline-variant text-center bg-surface-container-low">
+<button class="text-secondary font-body-sm text-body-sm hover:underline">View Full Loss Report</button>
+</div>
+</section>
+</main>
+</body></html>

@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Store-hand Home / Inventory List</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "error": "#ba1a1a",
+                      "surface": "#f9f9f9",
+                      "on-tertiary-container": "#bab8b8",
+                      "on-primary-fixed": "#410000",
+                      "on-error-container": "#93000a",
+                      "inverse-surface": "#2f3131",
+                      "secondary-fixed": "#ffe088",
+                      "surface-container": "#eeeeee",
+                      "on-tertiary": "#ffffff",
+                      "on-primary-fixed-variant": "#930000",
+                      "secondary": "#735c00",
+                      "tertiary": "#333333",
+                      "primary-fixed": "#ffdad4",
+                      "surface-container-lowest": "#ffffff",
+                      "inverse-on-surface": "#f1f1f1",
+                      "tertiary-container": "#4a4949",
+                      "secondary-fixed-dim": "#e9c349",
+                      "surface-bright": "#f9f9f9",
+                      "surface-dim": "#dadada",
+                      "on-background": "#1a1c1c",
+                      "on-tertiary-fixed": "#1c1b1b",
+                      "on-secondary-container": "#745c00",
+                      "background": "#f9f9f9",
+                      "on-primary": "#ffffff",
+                      "surface-container-highest": "#e2e2e2",
+                      "primary": "#6e0000",
+                      "tertiary-fixed": "#e5e2e1",
+                      "outline": "#8f706b",
+                      "inverse-primary": "#ffb4a8",
+                      "on-secondary-fixed-variant": "#574500",
+                      "on-tertiary-fixed-variant": "#474746",
+                      "primary-container": "#990000",
+                      "error-container": "#ffdad6",
+                      "tertiary-fixed-dim": "#c8c6c5",
+                      "on-secondary": "#ffffff",
+                      "surface-container-high": "#e8e8e8",
+                      "secondary-container": "#fed65b",
+                      "surface-tint": "#b82014",
+                      "on-primary-container": "#ffa092",
+                      "surface-variant": "#e2e2e2",
+                      "on-error": "#ffffff",
+                      "on-surface-variant": "#5b403c",
+                      "primary-fixed-dim": "#ffb4a8",
+                      "surface-container-low": "#f3f3f3",
+                      "on-secondary-fixed": "#241a00",
+                      "outline-variant": "#e4beb8",
+                      "on-surface": "#1a1c1c"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "margin-desktop": "32px",
+                      "container-max": "1440px",
+                      "margin-mobile": "16px",
+                      "gutter": "16px",
+                      "base": "4px"
+              },
+              "fontFamily": {
+                      "body-sm": [
+                              "Inter"
+                      ],
+                      "display-lg-mobile": [
+                              "Inter"
+                      ],
+                      "display-lg": [
+                              "Inter"
+                      ],
+                      "headline-md": [
+                              "Inter"
+                      ],
+                      "table-data": [
+                              "Inter"
+                      ],
+                      "body-md": [
+                              "Inter"
+                      ],
+                      "label-caps": [
+                              "JetBrains Mono"
+                      ]
+              },
+              "fontSize": {
+                      "body-sm": [
+                              "13px",
+                              {
+                                      "lineHeight": "18px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "display-lg-mobile": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "display-lg": [
+                              "32px",
+                              {
+                                      "lineHeight": "40px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "headline-md": [
+                              "20px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "table-data": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "body-md": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "label-caps": [
+                              "11px",
+                              {
+                                      "lineHeight": "16px",
+                                      "letterSpacing": "0.05em",
+                                      "fontWeight": "600"
+                              }
+                      ]
+              }
+            },
+          }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+          font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .fill-icon {
+            font-variation-settings: 'FILL' 1;
+        }
+        
+        /* Custom scrollbar for tables */
+        .custom-scrollbar::-webkit-scrollbar {
+            height: 8px;
+            width: 8px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f1f1; 
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #d4d4d4; 
+            border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #a3a3a3; 
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md min-h-screen flex flex-col md:flex-row">
+<!-- Mobile Top App Bar (Hidden on Desktop) -->
+<header class="md:hidden flex justify-between items-center w-full px-margin-mobile h-16 bg-surface dark:bg-surface-container border-b border-outline-variant dark:border-outline z-50 sticky top-0">
+<div class="text-headline-md font-headline-md font-bold text-primary dark:text-primary-fixed">
+            ExpireGuard Pro
+        </div>
+<div class="flex gap-4">
+<span class="material-symbols-outlined text-primary dark:text-primary-fixed cursor-pointer">notifications</span>
+<span class="material-symbols-outlined text-primary dark:text-primary-fixed cursor-pointer">account_circle</span>
+</div>
+</header>
+<!-- Side Navigation (Visible on Desktop) -->
+<nav class="hidden md:flex flex-col h-screen w-64 docked left-0 bg-surface-container-low dark:bg-surface-container-lowest border-r border-outline-variant dark:border-outline py-6 sticky top-0 z-40">
+<div class="px-6 mb-8">
+<div class="text-headline-md font-headline-md font-bold text-primary dark:text-primary-fixed mb-1">
+                Warehouse Alpha
+            </div>
+<div class="font-body-sm text-body-sm text-on-surface-variant dark:text-on-tertiary-container">
+                Manager View
+            </div>
+</div>
+<div class="px-4 mb-6">
+<button class="w-full bg-primary text-on-primary py-3 rounded flex justify-center items-center gap-2 font-table-data text-table-data hover:opacity-90 transition-opacity">
+<span class="material-symbols-outlined fill-icon text-on-primary" style="font-size: 20px;">add</span>
+                Register Product
+            </button>
+</div>
+<div class="flex-1 flex flex-col gap-1 px-2">
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-on-tertiary-container hover:bg-surface-container-highest dark:hover:bg-tertiary-container transition-colors rounded" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-table-data text-table-data">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 bg-transparent text-secondary dark:text-secondary-fixed border-l-4 border-secondary rounded-r bg-surface-container-highest" href="#">
+<span class="material-symbols-outlined fill-icon">inventory_2</span>
+<span class="font-table-data text-table-data font-bold">Inventory</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-on-tertiary-container hover:bg-surface-container-highest dark:hover:bg-tertiary-container transition-colors rounded" href="#">
+<span class="material-symbols-outlined">qr_code_scanner</span>
+<span class="font-table-data text-table-data">Scanner</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-on-tertiary-container hover:bg-surface-container-highest dark:hover:bg-tertiary-container transition-colors rounded" href="#">
+<span class="material-symbols-outlined">analytics</span>
+<span class="font-table-data text-table-data">Reports</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-on-tertiary-container hover:bg-surface-container-highest dark:hover:bg-tertiary-container transition-colors rounded" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-table-data text-table-data">Settings</span>
+</a>
+</div>
+<div class="flex flex-col gap-1 px-2 mt-auto pt-4 border-t border-outline-variant dark:border-outline mx-4">
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-on-tertiary-container hover:bg-surface-container-highest dark:hover:bg-tertiary-container transition-colors rounded" href="#">
+<span class="material-symbols-outlined">help</span>
+<span class="font-table-data text-table-data">Support</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-on-tertiary-container hover:bg-surface-container-highest dark:hover:bg-tertiary-container transition-colors rounded" href="#">
+<span class="material-symbols-outlined">logout</span>
+<span class="font-table-data text-table-data">Logout</span>
+</a>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="flex-1 flex flex-col w-full max-w-[container-max] mx-auto overflow-hidden bg-surface-bright relative pb-20 md:pb-0">
+<!-- Top App Bar (Desktop Only - Search/Profile) -->
+<div class="hidden md:flex justify-between items-center w-full px-margin-desktop h-16 bg-surface dark:bg-surface-container border-b border-outline-variant dark:border-outline z-30">
+<div class="flex-1 max-w-md">
+<!-- Global Search placeholder -->
+</div>
+<div class="flex gap-4 items-center">
+<button class="p-2 text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<div class="w-8 h-8 rounded-full bg-surface-container-high border border-outline flex items-center justify-center overflow-hidden cursor-pointer">
+<span class="material-symbols-outlined text-on-surface-variant" style="font-size: 20px;">person</span>
+</div>
+</div>
+</div>
+<!-- Scrollable Content Area -->
+<div class="flex-1 overflow-y-auto custom-scrollbar p-margin-mobile md:p-margin-desktop space-y-6">
+<!-- Header Section -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+<div>
+<h1 class="font-display-lg-mobile text-display-lg-mobile md:font-display-lg md:text-display-lg text-primary mb-1">Inventory Management</h1>
+<p class="font-body-md text-body-md text-on-surface-variant">Track, monitor, and manage expiring stock.</p>
+</div>
+</div>
+<!-- Summary Strip -->
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+<!-- Urgent -->
+<div class="bg-surface border border-outline-variant rounded p-4 flex flex-col relative overflow-hidden">
+<div class="absolute top-0 left-0 w-1 h-full bg-error"></div>
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider mb-2">Urgent</span>
+<div class="flex items-baseline gap-2">
+<span class="font-display-lg-mobile text-display-lg-mobile text-error">3</span>
+<span class="font-body-sm text-body-sm text-error">Items</span>
+</div>
+</div>
+<!-- Expired -->
+<div class="bg-surface border border-outline-variant rounded p-4 flex flex-col relative overflow-hidden">
+<div class="absolute top-0 left-0 w-1 h-full bg-primary-container"></div>
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider mb-2">Expired</span>
+<div class="flex items-baseline gap-2">
+<span class="font-display-lg-mobile text-display-lg-mobile text-primary-container">1</span>
+<span class="font-body-sm text-body-sm text-primary-container">Items</span>
+</div>
+</div>
+<!-- Monitor -->
+<div class="bg-surface border border-outline-variant rounded p-4 flex flex-col relative overflow-hidden">
+<div class="absolute top-0 left-0 w-1 h-full bg-secondary-container"></div>
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider mb-2">Monitor</span>
+<div class="flex items-baseline gap-2">
+<span class="font-display-lg-mobile text-display-lg-mobile text-secondary">12</span>
+<span class="font-body-sm text-body-sm text-secondary">Items</span>
+</div>
+</div>
+<!-- Fresh -->
+<div class="bg-surface border border-outline-variant rounded p-4 flex flex-col relative overflow-hidden">
+<div class="absolute top-0 left-0 w-1 h-full bg-[#146c2e]"></div>
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider mb-2">Fresh</span>
+<div class="flex items-baseline gap-2">
+<span class="font-display-lg-mobile text-display-lg-mobile text-[#146c2e]">45</span>
+<span class="font-body-sm text-body-sm text-[#146c2e]">Items</span>
+</div>
+</div>
+</div>
+<!-- Controls (Search & Filter) -->
+<div class="bg-surface border border-outline-variant rounded p-4 flex flex-col md:flex-row gap-4 items-center">
+<div class="relative w-full md:w-96">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant" style="font-size: 20px;">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-surface-container-lowest border border-outline-variant rounded text-table-data font-table-data focus:outline-none focus:border-secondary focus:ring-1 focus:ring-secondary transition-all" placeholder="Search inventory..." type="text"/>
+</div>
+<div class="flex gap-2 w-full md:w-auto overflow-x-auto pb-2 md:pb-0 hide-scrollbar">
+<select class="px-4 py-2 bg-surface-container-lowest border border-outline-variant rounded text-table-data font-table-data text-on-surface focus:outline-none focus:border-secondary cursor-pointer min-w-[140px]">
+<option value="">All Categories</option>
+<option value="dairy">Dairy</option>
+<option value="meat">Meat</option>
+<option value="produce">Produce</option>
+<option value="dry">Dry Goods</option>
+</select>
+<select class="px-4 py-2 bg-surface-container-lowest border border-outline-variant rounded text-table-data font-table-data text-on-surface focus:outline-none focus:border-secondary cursor-pointer min-w-[140px]">
+<option value="">Any Status</option>
+<option value="urgent">Urgent</option>
+<option value="expired">Expired</option>
+<option value="monitor">Monitor</option>
+<option value="fresh">Fresh</option>
+</select>
+<button class="px-4 py-2 bg-surface-container-lowest border border-outline-variant rounded text-table-data font-table-data text-on-surface hover:bg-surface-container-highest transition-colors flex items-center gap-2 whitespace-nowrap">
+<span class="material-symbols-outlined" style="font-size: 18px;">filter_list</span>
+                        More Filters
+                    </button>
+</div>
+</div>
+<!-- Data Table -->
+<div class="bg-surface border border-outline-variant rounded overflow-hidden flex flex-col">
+<div class="overflow-x-auto custom-scrollbar">
+<table class="w-full text-left border-collapse min-w-[800px]">
+<thead>
+<tr class="bg-surface-container-low border-b border-outline-variant">
+<th class="font-label-caps text-label-caps text-on-surface-variant uppercase py-3 px-4 whitespace-nowrap">Product Name</th>
+<th class="font-label-caps text-label-caps text-on-surface-variant uppercase py-3 px-4 whitespace-nowrap w-24">Qty</th>
+<th class="font-label-caps text-label-caps text-on-surface-variant uppercase py-3 px-4 whitespace-nowrap w-32">Location</th>
+<th class="font-label-caps text-label-caps text-on-surface-variant uppercase py-3 px-4 whitespace-nowrap w-32">Mfg Date</th>
+<th class="font-label-caps text-label-caps text-on-surface-variant uppercase py-3 px-4 whitespace-nowrap w-32">Expiry Date</th>
+<th class="font-label-caps text-label-caps text-on-surface-variant uppercase py-3 px-4 whitespace-nowrap w-32">Status</th>
+<th class="font-label-caps text-label-caps text-on-surface-variant uppercase py-3 px-4 whitespace-nowrap w-24 text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="font-table-data text-table-data text-on-surface divide-y divide-outline-variant/50">
+<!-- Expired Row -->
+<tr class="hover:bg-surface-container-lowest transition-colors group relative border-l-2 border-transparent hover:border-secondary">
+<td class="py-3 px-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded bg-surface-container flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined" style="font-size: 18px;">set_meal</span>
+</div>
+<div>
+<div class="font-medium">Premium Salmon Fillet</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant">Batch: #S-992</div>
+</div>
+</div>
+</td>
+<td class="py-3 px-4">12 kg</td>
+<td class="py-3 px-4">Cold-A2</td>
+<td class="py-3 px-4 text-on-surface-variant">Oct 20, 2023</td>
+<td class="py-3 px-4 font-medium text-primary-container">Oct 26, 2023</td>
+<td class="py-3 px-4">
+<span class="inline-flex items-center px-2 py-1 rounded-full bg-primary-container/10 text-primary-container font-label-caps text-label-caps uppercase tracking-wider border border-primary-container/20">
+                                        Expired
+                                    </span>
+</td>
+<td class="py-3 px-4 text-right">
+<button class="text-on-surface-variant hover:text-primary transition-colors p-1" title="Escalate">
+<span class="material-symbols-outlined" style="font-size: 20px;">warning</span>
+</button>
+</td>
+</tr>
+<!-- Urgent Row 1 -->
+<tr class="hover:bg-surface-container-lowest transition-colors group relative border-l-2 border-transparent hover:border-secondary">
+<td class="py-3 px-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded bg-surface-container flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined" style="font-size: 18px;">local_drink</span>
+</div>
+<div>
+<div class="font-medium">Organic Whole Milk</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant">Batch: #M-102</div>
+</div>
+</div>
+</td>
+<td class="py-3 px-4">48 units</td>
+<td class="py-3 px-4">Cold-B1</td>
+<td class="py-3 px-4 text-on-surface-variant">Oct 15, 2023</td>
+<td class="py-3 px-4 font-medium text-error">Oct 27, 2023</td>
+<td class="py-3 px-4">
+<span class="inline-flex items-center px-2 py-1 rounded-full bg-error/10 text-error font-label-caps text-label-caps uppercase tracking-wider border border-error/20">
+                                        Urgent
+                                    </span>
+</td>
+<td class="py-3 px-4 text-right">
+<div class="flex justify-end gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="text-on-surface-variant hover:text-[#146c2e] transition-colors p-1" title="Mark Cleared">
+<span class="material-symbols-outlined" style="font-size: 20px;">check_circle</span>
+</button>
+<button class="text-on-surface-variant hover:text-primary transition-colors p-1" title="More Actions">
+<span class="material-symbols-outlined" style="font-size: 20px;">more_vert</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Urgent Row 2 -->
+<tr class="hover:bg-surface-container-lowest transition-colors group relative border-l-2 border-transparent hover:border-secondary">
+<td class="py-3 px-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded bg-surface-container flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined" style="font-size: 18px;">egg</span>
+</div>
+<div>
+<div class="font-medium">Free Range Eggs (Dozen)</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant">Batch: #E-442</div>
+</div>
+</div>
+</td>
+<td class="py-3 px-4">120 units</td>
+<td class="py-3 px-4">Dry-A4</td>
+<td class="py-3 px-4 text-on-surface-variant">Sep 30, 2023</td>
+<td class="py-3 px-4 font-medium text-error">Oct 28, 2023</td>
+<td class="py-3 px-4">
+<span class="inline-flex items-center px-2 py-1 rounded-full bg-error/10 text-error font-label-caps text-label-caps uppercase tracking-wider border border-error/20">
+                                        Urgent
+                                    </span>
+</td>
+<td class="py-3 px-4 text-right">
+<div class="flex justify-end gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="text-on-surface-variant hover:text-[#146c2e] transition-colors p-1" title="Mark Cleared">
+<span class="material-symbols-outlined" style="font-size: 20px;">check_circle</span>
+</button>
+<button class="text-on-surface-variant hover:text-primary transition-colors p-1" title="More Actions">
+<span class="material-symbols-outlined" style="font-size: 20px;">more_vert</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Monitor Row -->
+<tr class="hover:bg-surface-container-lowest transition-colors group relative border-l-2 border-transparent hover:border-secondary">
+<td class="py-3 px-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded bg-surface-container flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined" style="font-size: 18px;">bakery_dining</span>
+</div>
+<div>
+<div class="font-medium">Sourdough Loaf</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant">Batch: #B-118</div>
+</div>
+</div>
+</td>
+<td class="py-3 px-4">24 units</td>
+<td class="py-3 px-4">Bakery-1</td>
+<td class="py-3 px-4 text-on-surface-variant">Oct 25, 2023</td>
+<td class="py-3 px-4 font-medium text-secondary">Oct 30, 2023</td>
+<td class="py-3 px-4">
+<span class="inline-flex items-center px-2 py-1 rounded-full bg-secondary-container/20 text-secondary font-label-caps text-label-caps uppercase tracking-wider border border-secondary-container">
+                                        Monitor
+                                    </span>
+</td>
+<td class="py-3 px-4 text-right">
+<div class="flex justify-end gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="text-on-surface-variant hover:text-[#146c2e] transition-colors p-1" title="Mark Cleared">
+<span class="material-symbols-outlined" style="font-size: 20px;">check_circle</span>
+</button>
+<button class="text-on-surface-variant hover:text-primary transition-colors p-1" title="More Actions">
+<span class="material-symbols-outlined" style="font-size: 20px;">more_vert</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Fresh Row -->
+<tr class="hover:bg-surface-container-lowest transition-colors group relative border-l-2 border-transparent hover:border-secondary">
+<td class="py-3 px-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded bg-surface-container flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined" style="font-size: 18px;">kitchen</span>
+</div>
+<div>
+<div class="font-medium">Greek Yogurt (Plain)</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant">Batch: #D-773</div>
+</div>
+</div>
+</td>
+<td class="py-3 px-4">80 units</td>
+<td class="py-3 px-4">Cold-C3</td>
+<td class="py-3 px-4 text-on-surface-variant">Oct 22, 2023</td>
+<td class="py-3 px-4 font-medium text-[#146c2e]">Nov 15, 2023</td>
+<td class="py-3 px-4">
+<span class="inline-flex items-center px-2 py-1 rounded-full bg-[#146c2e]/10 text-[#146c2e] font-label-caps text-label-caps uppercase tracking-wider border border-[#146c2e]/20">
+                                        Fresh
+                                    </span>
+</td>
+<td class="py-3 px-4 text-right">
+<div class="flex justify-end gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="text-on-surface-variant hover:text-[#146c2e] transition-colors p-1" title="Mark Cleared">
+<span class="material-symbols-outlined" style="font-size: 20px;">check_circle</span>
+</button>
+<button class="text-on-surface-variant hover:text-primary transition-colors p-1" title="More Actions">
+<span class="material-symbols-outlined" style="font-size: 20px;">more_vert</span>
+</button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination Footer -->
+<div class="bg-surface-container-low px-4 py-3 border-t border-outline-variant flex items-center justify-between">
+<span class="font-body-sm text-body-sm text-on-surface-variant">Showing 1 to 5 of 61 entries</span>
+<div class="flex gap-1">
+<button class="p-1 rounded text-on-surface-variant hover:bg-surface-container-highest disabled:opacity-50" disabled="">
+<span class="material-symbols-outlined" style="font-size: 20px;">chevron_left</span>
+</button>
+<button class="p-1 rounded text-on-surface-variant hover:bg-surface-container-highest">
+<span class="material-symbols-outlined" style="font-size: 20px;">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Floating Action Button (Mobile Only) -->
+<button class="md:hidden fixed bottom-6 right-6 w-14 h-14 bg-primary text-on-primary rounded-full shadow-lg flex items-center justify-center z-50 hover:bg-primary/90 transition-colors">
+<span class="material-symbols-outlined fill-icon" style="font-size: 28px;">add</span>
+</button>
+</main>
+</body></html>

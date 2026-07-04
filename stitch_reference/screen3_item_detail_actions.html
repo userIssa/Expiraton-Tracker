@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ExpireGuard Pro - Item Detail</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "error": "#ba1a1a",
+                      "surface": "#f9f9f9",
+                      "on-tertiary-container": "#bab8b8",
+                      "on-primary-fixed": "#410000",
+                      "on-error-container": "#93000a",
+                      "inverse-surface": "#2f3131",
+                      "secondary-fixed": "#ffe088",
+                      "surface-container": "#eeeeee",
+                      "on-tertiary": "#ffffff",
+                      "on-primary-fixed-variant": "#930000",
+                      "secondary": "#735c00",
+                      "tertiary": "#333333",
+                      "primary-fixed": "#ffdad4",
+                      "surface-container-lowest": "#ffffff",
+                      "inverse-on-surface": "#f1f1f1",
+                      "tertiary-container": "#4a4949",
+                      "secondary-fixed-dim": "#e9c349",
+                      "surface-bright": "#f9f9f9",
+                      "surface-dim": "#dadada",
+                      "on-background": "#1a1c1c",
+                      "on-tertiary-fixed": "#1c1b1b",
+                      "on-secondary-container": "#745c00",
+                      "background": "#f9f9f9",
+                      "on-primary": "#ffffff",
+                      "surface-container-highest": "#e2e2e2",
+                      "primary": "#6e0000",
+                      "tertiary-fixed": "#e5e2e1",
+                      "outline": "#8f706b",
+                      "inverse-primary": "#ffb4a8",
+                      "on-secondary-fixed-variant": "#574500",
+                      "on-tertiary-fixed-variant": "#474746",
+                      "primary-container": "#990000",
+                      "error-container": "#ffdad6",
+                      "tertiary-fixed-dim": "#c8c6c5",
+                      "on-secondary": "#ffffff",
+                      "surface-container-high": "#e8e8e8",
+                      "secondary-container": "#fed65b",
+                      "surface-tint": "#b82014",
+                      "on-primary-container": "#ffa092",
+                      "surface-variant": "#e2e2e2",
+                      "on-error": "#ffffff",
+                      "on-surface-variant": "#5b403c",
+                      "primary-fixed-dim": "#ffb4a8",
+                      "surface-container-low": "#f3f3f3",
+                      "on-secondary-fixed": "#241a00",
+                      "outline-variant": "#e4beb8",
+                      "on-surface": "#1a1c1c"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "margin-desktop": "32px",
+                      "container-max": "1440px",
+                      "margin-mobile": "16px",
+                      "gutter": "16px",
+                      "base": "4px"
+              },
+              "fontFamily": {
+                      "body-sm": [
+                              "Inter"
+                      ],
+                      "display-lg-mobile": [
+                              "Inter"
+                      ],
+                      "display-lg": [
+                              "Inter"
+                      ],
+                      "headline-md": [
+                              "Inter"
+                      ],
+                      "table-data": [
+                              "Inter"
+                      ],
+                      "body-md": [
+                              "Inter"
+                      ],
+                      "label-caps": [
+                              "JetBrains Mono"
+                      ]
+              },
+              "fontSize": {
+                      "body-sm": [
+                              "13px",
+                              {
+                                      "lineHeight": "18px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "display-lg-mobile": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "display-lg": [
+                              "32px",
+                              {
+                                      "lineHeight": "40px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "headline-md": [
+                              "20px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "table-data": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "body-md": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "label-caps": [
+                              "11px",
+                              {
+                                      "lineHeight": "16px",
+                                      "letterSpacing": "0.05em",
+                                      "fontWeight": "600"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+      </script>
+</head>
+<body class="bg-surface text-on-surface font-body-md min-h-screen flex">
+<!-- JSON Component: SideNavBar -->
+<aside class="bg-surface-container-low dark:bg-surface-container-lowest h-screen w-64 docked left-0 border-r border-outline-variant dark:border-outline flex flex-col h-full py-6 hidden md:flex shrink-0">
+<div class="px-4 mb-8">
+<h1 class="text-headline-md font-headline-md font-bold text-primary dark:text-primary-fixed">Warehouse Alpha</h1>
+<p class="text-body-sm font-body-sm text-on-surface-variant">Manager View</p>
+</div>
+<div class="px-4 mb-6">
+<button class="w-full bg-primary text-on-primary py-2 px-4 rounded font-table-data text-table-data flex items-center justify-center gap-2 hover:bg-primary-container transition-colors min-h-[48px]">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">add</span>
+                 Register Product
+             </button>
+</div>
+<nav class="flex-1 flex flex-col gap-1">
+<a class="flex items-center gap-3 px-4 py-3 bg-transparent text-secondary dark:text-secondary-fixed border-l-4 border-secondary font-table-data text-table-data" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+                Dashboard
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-on-tertiary-container hover:bg-surface-container-highest dark:hover:bg-tertiary-container transition-colors font-table-data text-table-data border-l-4 border-transparent hover:border-outline-variant" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+                Inventory
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-on-tertiary-container hover:bg-surface-container-highest dark:hover:bg-tertiary-container transition-colors font-table-data text-table-data border-l-4 border-transparent hover:border-outline-variant" href="#">
+<span class="material-symbols-outlined">qr_code_scanner</span>
+                Scanner
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-on-tertiary-container hover:bg-surface-container-highest dark:hover:bg-tertiary-container transition-colors font-table-data text-table-data border-l-4 border-transparent hover:border-outline-variant" href="#">
+<span class="material-symbols-outlined">analytics</span>
+                Reports
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-on-tertiary-container hover:bg-surface-container-highest dark:hover:bg-tertiary-container transition-colors font-table-data text-table-data border-l-4 border-transparent hover:border-outline-variant" href="#">
+<span class="material-symbols-outlined">settings</span>
+                Settings
+            </a>
+</nav>
+<div class="mt-auto flex flex-col gap-1">
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-on-tertiary-container hover:bg-surface-container-highest dark:hover:bg-tertiary-container transition-colors font-table-data text-table-data border-l-4 border-transparent hover:border-outline-variant" href="#">
+<span class="material-symbols-outlined">help</span>
+                Support
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-on-tertiary-container hover:bg-surface-container-highest dark:hover:bg-tertiary-container transition-colors font-table-data text-table-data border-l-4 border-transparent hover:border-outline-variant" href="#">
+<span class="material-symbols-outlined">logout</span>
+                Logout
+            </a>
+</div>
+</aside>
+<div class="flex-1 flex flex-col min-w-0">
+<!-- JSON Component: TopNavBar -->
+<header class="bg-surface dark:bg-surface-container border-b border-outline-variant dark:border-outline flex justify-between items-center w-full px-margin-mobile md:px-margin-desktop h-16 shrink-0">
+<div class="flex items-center gap-4">
+<button class="md:hidden text-on-surface-variant p-2 -ml-2 rounded-full hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<a class="text-headline-md font-headline-md font-bold text-primary dark:text-primary-fixed block md:hidden" href="#">ExpireGuard Pro</a>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative hidden sm:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant pointer-events-none text-sm">search</span>
+<input class="pl-9 pr-4 py-1.5 bg-surface-container-low border border-outline-variant rounded text-table-data font-table-data focus:outline-none focus:border-secondary focus:ring-2 focus:ring-secondary/20 transition-all w-64 placeholder:text-on-surface-variant" placeholder="Search SKU or Batch..." type="text"/>
+</div>
+<button class="text-on-surface-variant hover:text-primary dark:hover:text-primary-fixed transition-colors p-2 rounded-full hover:bg-surface-container-high">
+<span class="material-symbols-outlined" data-weight="fill">notifications</span>
+</button>
+<button class="text-on-surface-variant hover:text-primary dark:hover:text-primary-fixed transition-colors p-2 rounded-full hover:bg-surface-container-high">
+<span class="material-symbols-outlined" data-weight="fill">account_circle</span>
+</button>
+</div>
+</header>
+<main class="flex-1 overflow-y-auto p-margin-mobile md:p-margin-desktop">
+<div class="max-w-container-max mx-auto">
+<!-- Page Header with Breadcrumbs -->
+<div class="mb-8 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+<div>
+<div class="flex items-center gap-2 text-label-caps font-label-caps text-on-surface-variant mb-2 uppercase">
+<a class="hover:text-primary transition-colors" href="#">Inventory</a>
+<span class="material-symbols-outlined text-[14px]">chevron_right</span>
+<span>Details</span>
+</div>
+<h2 class="text-display-lg-mobile md:text-display-lg font-display-lg-mobile md:font-display-lg font-bold flex items-center gap-3">
+                            Sodium Hyaluronate 5%
+                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-error/10 text-error">
+                                Flagged
+                            </span>
+</h2>
+</div>
+<div class="flex flex-wrap gap-3">
+<button class="flex items-center justify-center gap-2 bg-transparent border border-secondary text-secondary hover:bg-secondary/5 font-table-data text-table-data py-2 px-4 rounded transition-colors min-h-[48px] sm:min-h-0">
+<span class="material-symbols-outlined">edit</span>
+                            Edit Info
+                        </button>
+</div>
+</div>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
+<!-- Main Info Card (Spans 8 columns on desktop) -->
+<div class="md:col-span-8 bg-surface-container-lowest border border-outline-variant rounded-lg p-6 relative overflow-hidden">
+<!-- Decorative subtle gold accent on left edge indicating active/selected state -->
+<div class="absolute top-0 left-0 bottom-0 w-[2px] bg-secondary"></div>
+<div class="flex items-center justify-between mb-6 border-b border-surface-container-highest pb-4">
+<h3 class="text-headline-md font-headline-md text-on-background">Batch Information</h3>
+<button class="text-secondary hover:bg-secondary/10 p-1 rounded transition-colors">
+<span class="material-symbols-outlined">open_in_full</span>
+</button>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-y-6 gap-x-8">
+<div>
+<label class="text-label-caps font-label-caps text-on-surface-variant uppercase tracking-wider block mb-1">SKU</label>
+<p class="text-table-data font-table-data font-medium">SH-500-24X</p>
+</div>
+<div>
+<label class="text-label-caps font-label-caps text-on-surface-variant uppercase tracking-wider block mb-1">Batch Number</label>
+<p class="text-table-data font-table-data font-medium">B-99482-A</p>
+</div>
+<div>
+<label class="text-label-caps font-label-caps text-on-surface-variant uppercase tracking-wider block mb-1">Production Date</label>
+<p class="text-table-data font-table-data font-medium">2023-01-15</p>
+</div>
+<div>
+<label class="text-label-caps font-label-caps text-error uppercase tracking-wider block mb-1">Expiration Date</label>
+<p class="text-table-data font-table-data font-bold text-error flex items-center gap-2">
+                                    2023-11-01 
+                                    <span class="material-symbols-outlined text-[16px]">warning</span>
+</p>
+</div>
+<div class="sm:col-span-2">
+<label class="text-label-caps font-label-caps text-on-surface-variant uppercase tracking-wider block mb-1">Storage Location</label>
+<div class="flex items-center gap-2 p-3 bg-surface-container-low rounded border border-outline-variant/50">
+<span class="material-symbols-outlined text-on-surface-variant">location_on</span>
+<span class="text-table-data font-table-data">Aisle 4, Rack B, Shelf 2 (Cold Storage required)</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Action Panel (Spans 4 columns on desktop) -->
+<div class="md:col-span-4 flex flex-col gap-gutter">
+<div class="bg-surface-container-lowest border border-outline-variant rounded-lg p-6 shadow-[0_4px_12px_rgba(0,0,0,0.02)]">
+<h3 class="text-headline-md font-headline-md text-on-background mb-4">Required Actions</h3>
+<div class="space-y-4">
+<button class="w-full flex items-center justify-center gap-2 bg-transparent border border-outline-variant text-on-surface-variant hover:border-secondary hover:text-secondary font-table-data text-table-data py-3 px-4 rounded transition-all min-h-[48px]">
+<span class="material-symbols-outlined">check_circle</span>
+                                     Mark as Cleared
+                                 </button>
+<p class="text-label-caps font-label-caps text-on-surface-variant text-center -mt-2 uppercase">Log Reason: Sold or Discarded</p>
+<div class="w-full h-px bg-surface-container-highest my-2"></div>
+<button class="w-full flex items-center justify-center gap-2 bg-primary text-on-primary hover:bg-primary-container font-table-data text-table-data py-3 px-4 rounded transition-colors shadow-[0_4px_12px_rgba(0,0,0,0.08)] min-h-[48px]">
+<span class="material-symbols-outlined">campaign</span>
+                                     Raise Escalation
+                                 </button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

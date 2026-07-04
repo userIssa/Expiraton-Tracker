@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Register New Product - ExpireGuard Pro</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "error": "#ba1a1a",
+                      "surface": "#f9f9f9",
+                      "on-tertiary-container": "#bab8b8",
+                      "on-primary-fixed": "#410000",
+                      "on-error-container": "#93000a",
+                      "inverse-surface": "#2f3131",
+                      "secondary-fixed": "#ffe088",
+                      "surface-container": "#eeeeee",
+                      "on-tertiary": "#ffffff",
+                      "on-primary-fixed-variant": "#930000",
+                      "secondary": "#735c00",
+                      "tertiary": "#333333",
+                      "primary-fixed": "#ffdad4",
+                      "surface-container-lowest": "#ffffff",
+                      "inverse-on-surface": "#f1f1f1",
+                      "tertiary-container": "#4a4949",
+                      "secondary-fixed-dim": "#e9c349",
+                      "surface-bright": "#f9f9f9",
+                      "surface-dim": "#dadada",
+                      "on-background": "#1a1c1c",
+                      "on-tertiary-fixed": "#1c1b1b",
+                      "on-secondary-container": "#745c00",
+                      "background": "#f9f9f9",
+                      "on-primary": "#ffffff",
+                      "surface-container-highest": "#e2e2e2",
+                      "primary": "#6e0000",
+                      "tertiary-fixed": "#e5e2e1",
+                      "outline": "#8f706b",
+                      "inverse-primary": "#ffb4a8",
+                      "on-secondary-fixed-variant": "#574500",
+                      "on-tertiary-fixed-variant": "#474746",
+                      "primary-container": "#990000",
+                      "error-container": "#ffdad6",
+                      "tertiary-fixed-dim": "#c8c6c5",
+                      "on-secondary": "#ffffff",
+                      "surface-container-high": "#e8e8e8",
+                      "secondary-container": "#fed65b",
+                      "surface-tint": "#b82014",
+                      "on-primary-container": "#ffa092",
+                      "surface-variant": "#e2e2e2",
+                      "on-error": "#ffffff",
+                      "on-surface-variant": "#5b403c",
+                      "primary-fixed-dim": "#ffb4a8",
+                      "surface-container-low": "#f3f3f3",
+                      "on-secondary-fixed": "#241a00",
+                      "outline-variant": "#e4beb8",
+                      "on-surface": "#1a1c1c"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "margin-desktop": "32px",
+                      "container-max": "1440px",
+                      "margin-mobile": "16px",
+                      "gutter": "16px",
+                      "base": "4px"
+              },
+              "fontFamily": {
+                      "body-sm": [
+                              "Inter"
+                      ],
+                      "display-lg-mobile": [
+                              "Inter"
+                      ],
+                      "display-lg": [
+                              "Inter"
+                      ],
+                      "headline-md": [
+                              "Inter"
+                      ],
+                      "table-data": [
+                              "Inter"
+                      ],
+                      "body-md": [
+                              "Inter"
+                      ],
+                      "label-caps": [
+                              "JetBrains Mono"
+                      ]
+              },
+              "fontSize": {
+                      "body-sm": [
+                              "13px",
+                              {
+                                      "lineHeight": "18px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "display-lg-mobile": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "display-lg": [
+                              "32px",
+                              {
+                                      "lineHeight": "40px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "headline-md": [
+                              "20px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "table-data": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "body-md": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "label-caps": [
+                              "11px",
+                              {
+                                      "lineHeight": "16px",
+                                      "letterSpacing": "0.05em",
+                                      "fontWeight": "600"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+      </script>
+<style>
+        .form-input-ring {
+            transition: all 0.2s ease-in-out;
+        }
+        .form-input-ring:focus-within {
+            border-color: theme('colors.secondary');
+            box-shadow: 0 0 0 2px theme('colors.secondary-fixed-dim');
+        }
+      </style>
+</head>
+<body class="bg-surface text-on-surface font-body-md min-h-screen flex flex-col md:flex-row antialiased">
+<!-- TopNavBar (Mobile Only) -->
+<header class="md:hidden flex justify-between items-center w-full px-margin-mobile h-16 bg-surface border-b border-outline-variant flat no shadows sticky top-0 z-50">
+<div class="text-headline-md font-headline-md font-bold text-primary">ExpireGuard Pro</div>
+<div class="flex items-center gap-4">
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
+</button>
+</div>
+</header>
+<!-- SideNavBar (Desktop Only) -->
+<aside class="hidden md:flex flex-col h-screen w-64 docked left-0 bg-surface-container-low border-r border-outline-variant py-6 sticky top-0 shrink-0">
+<div class="px-4 mb-8">
+<div class="text-headline-md font-headline-md font-bold text-primary">ExpireGuard Pro</div>
+<div class="text-on-surface-variant font-body-sm mt-1">Warehouse Alpha</div>
+<div class="text-on-surface-variant font-label-caps mt-0.5 opacity-70">Manager View</div>
+</div>
+<nav class="flex-1 flex flex-col gap-2">
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-highest transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-body-md text-body-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-highest transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="inventory_2">inventory_2</span>
+<span class="font-body-md text-body-md">Inventory</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-highest transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="qr_code_scanner">qr_code_scanner</span>
+<span class="font-body-md text-body-md">Scanner</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-highest transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+<span class="font-body-md text-body-md">Reports</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-highest transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-body-md text-body-md">Settings</span>
+</a>
+</nav>
+<div class="px-4 mt-auto">
+<button class="w-full bg-primary text-on-primary font-body-md text-body-md py-3 rounded flex items-center justify-center gap-2 mb-4 hover:opacity-90 transition-opacity">
+<span class="material-symbols-outlined text-[20px]" data-icon="add">add</span>
+                Register Product
+            </button>
+<nav class="flex flex-col gap-2">
+<a class="flex items-center gap-3 py-2 text-on-surface-variant hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+<span class="font-body-md text-body-md">Support</span>
+</a>
+<a class="flex items-center gap-3 py-2 text-on-surface-variant hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="logout">logout</span>
+<span class="font-body-md text-body-md">Logout</span>
+</a>
+</nav>
+</div>
+</aside>
+<!-- Main Canvas -->
+<main class="flex-1 w-full max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-8">
+<!-- Page Header -->
+<div class="mb-8 flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-outline-variant pb-4">
+<div>
+<h1 class="font-display-lg-mobile md:font-display-lg text-display-lg-mobile md:text-display-lg text-on-background">Register New Product</h1>
+<p class="font-body-md text-body-md text-on-surface-variant mt-2 max-w-2xl">Enter product details to begin tracking expiration and location data.</p>
+</div>
+<!-- Live Preview Chip -->
+<div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-surface-container-high border border-outline-variant text-on-surface transition-colors duration-300" id="urgency-chip">
+<span class="material-symbols-outlined text-[18px]" data-icon="info">info</span>
+<span class="font-label-caps text-label-caps tracking-wider">Awaiting Date</span>
+</div>
+</div>
+<!-- Form Layout (Bento Grid approach for larger screens) -->
+<form class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
+<!-- Primary Details Card (Spans 8 cols on desktop) -->
+<div class="md:col-span-8 bg-surface-container-lowest border border-outline-variant rounded p-6 shadow-sm">
+<h2 class="font-headline-md text-headline-md text-on-background mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary" data-icon="info">info</span>
+                    Product Identification
+                </h2>
+<div class="space-y-6">
+<!-- Product Lookup -->
+<div>
+<label class="block font-label-caps text-label-caps text-on-surface-variant mb-2">Product Name / SKU</label>
+<div class="relative form-input-ring rounded border border-outline-variant bg-surface flex items-center px-4 h-12 min-h-[48px]">
+<span class="material-symbols-outlined text-on-surface-variant mr-3" data-icon="search">search</span>
+<input autofocus="" class="flex-1 bg-transparent border-none outline-none font-body-md text-body-md text-on-surface placeholder:text-on-surface-variant/50 w-full" placeholder="Scan SKU or type name..." type="text"/>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-gutter">
+<!-- Category -->
+<div>
+<label class="block font-label-caps text-label-caps text-on-surface-variant mb-2">Category</label>
+<div class="relative form-input-ring rounded border border-outline-variant bg-surface flex items-center px-4 h-12 min-h-[48px]">
+<select class="flex-1 bg-transparent border-none outline-none font-body-md text-body-md text-on-surface appearance-none w-full cursor-pointer">
+<option disabled="" selected="" value="">Select Category</option>
+<option>Dry Goods</option>
+<option>Refrigerated</option>
+<option>Frozen</option>
+<option>Chemicals</option>
+</select>
+<span class="material-symbols-outlined text-on-surface-variant pointer-events-none absolute right-4" data-icon="expand_more">expand_more</span>
+</div>
+</div>
+<!-- Batch/Lot -->
+<div>
+<label class="block font-label-caps text-label-caps text-on-surface-variant mb-2">Batch / Lot Number</label>
+<div class="form-input-ring rounded border border-outline-variant bg-surface flex items-center px-4 h-12 min-h-[48px]">
+<input class="flex-1 bg-transparent border-none outline-none font-body-md text-body-md text-on-surface placeholder:text-on-surface-variant/50 w-full" placeholder="e.g. LOT-4928A" type="text"/>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Logistics Card (Spans 4 cols on desktop) -->
+<div class="md:col-span-4 bg-surface-container-lowest border border-outline-variant rounded p-6 shadow-sm">
+<h2 class="font-headline-md text-headline-md text-on-background mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary" data-icon="local_shipping">local_shipping</span>
+                    Logistics
+                </h2>
+<div class="space-y-6">
+<!-- Quantity -->
+<div>
+<label class="block font-label-caps text-label-caps text-on-surface-variant mb-2">Quantity Received</label>
+<div class="form-input-ring rounded border border-outline-variant bg-surface flex items-center px-4 h-12 min-h-[48px]">
+<input class="flex-1 bg-transparent border-none outline-none font-body-md text-body-md text-on-surface w-full" min="1" type="number" value="1"/>
+<span class="text-on-surface-variant font-label-caps text-label-caps ml-2 border-l border-outline-variant pl-4">UNITS</span>
+</div>
+</div>
+<!-- Location -->
+<div>
+<label class="block font-label-caps text-label-caps text-on-surface-variant mb-2">Storage Location</label>
+<div class="relative form-input-ring rounded border border-outline-variant bg-surface flex items-center px-4 h-12 min-h-[48px]">
+<select class="flex-1 bg-transparent border-none outline-none font-body-md text-body-md text-on-surface appearance-none w-full cursor-pointer">
+<option disabled="" selected="" value="">Select Zone/Shelf</option>
+<option>Zone A - Shelf 1</option>
+<option>Zone A - Shelf 2</option>
+<option>Zone B - Cold Storage</option>
+</select>
+<span class="material-symbols-outlined text-on-surface-variant pointer-events-none absolute right-4" data-icon="expand_more">expand_more</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Timeline Card (Spans 12 cols on desktop) -->
+<div class="md:col-span-12 bg-surface-container-lowest border border-outline-variant rounded p-6 shadow-sm mt-4">
+<h2 class="font-headline-md text-headline-md text-on-background mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary" data-icon="schedule">schedule</span>
+                    Critical Timeline
+                </h2>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+<!-- Date Received -->
+<div>
+<label class="block font-label-caps text-label-caps text-on-surface-variant mb-2">Date Received</label>
+<div class="relative form-input-ring rounded border border-outline-variant bg-surface flex items-center px-4 h-12 min-h-[48px]">
+<span class="material-symbols-outlined text-on-surface-variant mr-3" data-icon="today">today</span>
+<input class="flex-1 bg-transparent border-none outline-none font-body-md text-body-md text-on-surface w-full" id="date-received" type="date"/>
+</div>
+</div>
+<!-- Manufacture Date -->
+<div>
+<label class="block font-label-caps text-label-caps text-on-surface-variant mb-2">Manufacture Date <span class="opacity-50 font-normal ml-1">(Optional)</span></label>
+<div class="relative form-input-ring rounded border border-outline-variant bg-surface flex items-center px-4 h-12 min-h-[48px]">
+<span class="material-symbols-outlined text-on-surface-variant mr-3" data-icon="factory">factory</span>
+<input class="flex-1 bg-transparent border-none outline-none font-body-md text-body-md text-on-surface w-full" type="date"/>
+</div>
+</div>
+<!-- Expiry Date -->
+<div>
+<label class="block font-label-caps text-label-caps text-on-surface-variant mb-2">Expiration Date <span class="text-error">*</span></label>
+<div class="relative form-input-ring rounded border-l-4 border-l-primary border-t border-r border-b border-outline-variant bg-surface flex items-center px-4 h-12 min-h-[48px]">
+<span class="material-symbols-outlined text-primary mr-3" data-icon="event_busy">event_busy</span>
+<input class="flex-1 bg-transparent border-none outline-none font-body-md text-body-md text-on-surface w-full" id="expiry-date-input" type="date"/>
+</div>
+</div>
+</div>
+</div>
+<!-- Photo Upload Area (Spans 12 cols) -->
+<div class="md:col-span-12 mt-4">
+<label class="block font-label-caps text-label-caps text-on-surface-variant mb-2">Verification Photo (Optional)</label>
+<div class="border-2 border-dashed border-outline-variant hover:border-secondary transition-colors rounded-lg bg-surface-container-low flex flex-col items-center justify-center p-8 cursor-pointer group min-h-[160px]">
+<div class="bg-surface rounded-full p-4 mb-4 group-hover:bg-secondary-fixed-dim transition-colors shadow-sm">
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-secondary text-[32px]" data-icon="add_a_photo">add_a_photo</span>
+</div>
+<p class="font-body-md text-body-md text-on-background font-medium">Tap to capture or upload label image</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">PNG, JPG up to 5MB</p>
+</div>
+</div>
+<!-- Actions -->
+<div class="md:col-span-12 flex flex-col-reverse md:flex-row justify-end gap-4 mt-8 pt-4 border-t border-outline-variant">
+<button class="h-12 min-h-[48px] px-8 rounded font-body-md text-body-md font-medium text-on-surface-variant hover:text-primary transition-colors" type="button">
+                    Cancel
+                </button>
+<button class="h-12 min-h-[48px] px-8 rounded bg-primary text-on-primary font-body-md text-body-md font-medium hover:bg-primary-container shadow-sm hover:shadow transition-all flex items-center justify-center gap-2" type="submit">
+<span class="material-symbols-outlined" data-icon="save">save</span>
+                    Register Product
+                </button>
+</div>
+</form>
+</main>
+<script>
+        // Set today's date as default for received date
+        document.getElementById('date-received').valueAsDate = new Date();
+
+        // Simple script to update the Urgency Chip based on expiry input
+        const expiryInput = document.getElementById('expiry-date-input');
+        const urgencyChip = document.getElementById('urgency-chip');
+
+        expiryInput.addEventListener('change', function(e) {
+            if(!this.value) {
+                urgencyChip.innerHTML = `<span class="material-symbols-outlined text-[18px]" data-icon="info">info</span><span class="font-label-caps text-label-caps tracking-wider">Awaiting Date</span>`;
+                urgencyChip.className = "inline-flex items-center gap-2 px-4 py-2 rounded-full bg-surface-container-high border border-outline-variant text-on-surface transition-colors duration-300";
+                return;
+            }
+
+            const expiryDate = new Date(this.value);
+            const today = new Date();
+            const diffTime = expiryDate - today;
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+            if (diffDays < 0) {
+                 urgencyChip.innerHTML = `<span class="material-symbols-outlined text-[18px]" data-icon="error">error</span><span class="font-label-caps text-label-caps tracking-wider">Expired</span>`;
+                 urgencyChip.className = "inline-flex items-center gap-2 px-4 py-2 rounded-full bg-error/10 border border-error text-error transition-colors duration-300";
+            } else if (diffDays <= 30) {
+                 urgencyChip.innerHTML = `<span class="material-symbols-outlined text-[18px]" data-icon="warning">warning</span><span class="font-label-caps text-label-caps tracking-wider">Expiring Soon (${diffDays}d)</span>`;
+                 urgencyChip.className = "inline-flex items-center gap-2 px-4 py-2 rounded-full bg-secondary-container/30 border border-secondary text-secondary transition-colors duration-300";
+            } else {
+                 urgencyChip.innerHTML = `<span class="material-symbols-outlined text-[18px]" data-icon="check_circle">check_circle</span><span class="font-label-caps text-label-caps tracking-wider">Fresh (Safe)</span>`;
+                 // Assuming a 'safe/green' semantic isn't explicitly in the palette as a primary action color, using a neutral/surface-variant approach or relying on a specific CSS color if allowed. Using standard surface with a subtle border for now as per minimal guidelines.
+                 urgencyChip.className = "inline-flex items-center gap-2 px-4 py-2 rounded-full bg-surface border border-outline text-on-surface transition-colors duration-300";
+            }
+        });
+    </script>
+</body></html>

@@ -1,26 +1,86 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #f9f9f9;
+  --foreground: #1a1c1c;
 }
 
-@theme inline {
+@theme {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  --color-primary: #6e0000;
+  --color-on-primary: #ffffff;
+  --color-primary-container: #990000;
+  --color-secondary: #735c00;
+  --color-secondary-container: #fed65b;
+  --color-surface: #ffffff;
+  --color-surface-container-lowest: #ffffff;
+  --color-surface-container-low: #f3f3f3;
+  --color-surface-container: #eeeeee;
+  --color-surface-container-high: #e8e8e8;
+  --color-surface-container-highest: #e2e2e2;
+  --color-on-surface: #1a1c1c;
+  --color-on-surface-variant: #5b403c;
+  --color-outline: #8f706b;
+  --color-outline-variant: #e4beb8;
+  
+  /* Urgency System Colors */
+  --color-urgency-green-bg: #146c2e15;
+  --color-urgency-green-border: #146c2e30;
+  --color-urgency-green-text: #146c2e;
+  
+  --color-urgency-yellow-bg: #ffe08830;
+  --color-urgency-yellow-border: #e9c34980;
+  --color-urgency-yellow-text: #735c00;
+  
+  --color-urgency-orange-bg: #fed65b25;
+  --color-urgency-orange-border: #fed65b80;
+  --color-urgency-orange-text: #9e7500;
+  
+  --color-urgency-red-bg: #ba1a1a10;
+  --color-urgency-red-border: #ba1a1a30;
+  --color-urgency-red-text: #ba1a1a;
+  
+  --color-urgency-maroon-bg: #6e000010;
+  --color-urgency-maroon-border: #6e000030;
+  --color-urgency-maroon-text: #6e0000;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --font-sans: var(--font-inter);
+  --font-mono: var(--font-jetbrains-mono);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+}
+
+.material-symbols-outlined {
+  font-family: 'Material Symbols Outlined' !important;
+  font-weight: normal !important;
+  font-style: normal !important;
+  text-transform: none !important;
+  line-height: 1 !important;
+  letter-spacing: normal;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-smoothing: antialiased;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+/* Custom scrollbar for tables */
+.custom-scrollbar::-webkit-scrollbar {
+  height: 6px;
+  width: 6px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #d4d4d4; 
+  border-radius: 4px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #a3a3a3; 
 }
