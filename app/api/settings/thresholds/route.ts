@@ -66,15 +66,44 @@ export async function PUT(request: Request) {
     }
 
     let threshold;
+    const targetCategory = category.trim();
+
     if (_id) {
+      const oldThreshold = await CategoryThreshold.findById(_id);
+      if (!oldThreshold) {
+        return NextResponse.json({ error: 'Threshold configuration not found' }, { status: 404 });
+      }
+
+      // Check duplicate name if category name changed
+      const oldCategoryName = oldThreshold.category;
+      if (oldCategoryName !== targetCategory) {
+        const existing = await CategoryThreshold.findOne({
+          category: { $regex: new RegExp(`^${targetCategory}$`, 'i') }
+        });
+        if (existing) {
+          return NextResponse.json({ error: `Category "${targetCategory}" already exists` }, { status: 400 });
+        }
+      }
+
       threshold = await CategoryThreshold.findByIdAndUpdate(
         _id,
-        { greenMinDays: g, yellowMinDays: y, orangeMinDays: o, redMinDays: r },
+        { category: targetCategory, greenMinDays: g, yellowMinDays: y, orangeMinDays: o, redMinDays: r },
         { new: true }
       );
+
+      // If category name changed, update all products belonging to the old category name
+      if (oldCategoryName !== targetCategory) {
+        const ProductModel = (await import('@/lib/models/Product')).default;
+        // Evaluate Product schema just in case Mongoose registry needs it
+        const _forceProduct = ProductModel;
+        await ProductModel.updateMany(
+          { category: oldCategoryName },
+          { category: targetCategory }
+        );
+      }
     } else {
       threshold = await CategoryThreshold.findOneAndUpdate(
-        { category },
+        { category: targetCategory },
         { greenMinDays: g, yellowMinDays: y, orangeMinDays: o, redMinDays: r },
         { new: true, upsert: true }
       );

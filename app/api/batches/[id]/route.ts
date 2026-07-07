@@ -21,6 +21,7 @@ export async function GET(
     const { id } = await context.params;
     await dbConnect();
     const _forceUser = User;
+    const _forceProduct = Product;
 
     const batch = await Batch.findById(id)
       .populate('productId')
@@ -61,6 +62,7 @@ export async function PATCH(
     const { id } = await context.params;
     await dbConnect();
     const _forceUser = User;
+    const _forceProduct = Product;
 
     const batch = await Batch.findById(id).populate('productId');
     if (!batch) {

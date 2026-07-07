@@ -6,6 +6,7 @@ import Product from '@/lib/models/Product';
 import StatusHistory from '@/lib/models/StatusHistory';
 import User from '@/lib/models/User';
 import { getCurrentUser } from '@/lib/session';
+import { sendEscalationEmail } from '@/lib/resend';
 
 export async function PATCH(
   request: Request,
@@ -141,6 +142,31 @@ export async function PATCH(
       })
       .populate('raisedBy', 'name email role')
       .populate('assignedTo', 'name email role');
+
+    // Send email alert to assignee if reassigned
+    if (action === 'reassign' && populatedEscalation) {
+      try {
+        const batchDoc = populatedEscalation.batchId;
+        const productDoc = (batchDoc as any).productId;
+        await sendEscalationEmail(
+          (populatedEscalation.assignedTo as any).email,
+          (populatedEscalation.assignedTo as any).name,
+          {
+            batchNumber: (batchDoc as any).batchNumber,
+            productName: (productDoc as any).name,
+            SKU: (productDoc as any).SKU,
+            quantity: (batchDoc as any).quantity,
+            unit: (productDoc as any).unit,
+            expiryDate: (batchDoc as any).expiryDate,
+            location: (batchDoc as any).location,
+          },
+          `Reassigned from previous supervisor. Note: ${note || 'No additional note.'}`,
+          user.name
+        );
+      } catch (emailErr) {
+        console.error('Failed to send reassign email:', emailErr);
+      }
+    }
 
     return NextResponse.json({
       success: true,

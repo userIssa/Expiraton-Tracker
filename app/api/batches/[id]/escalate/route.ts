@@ -6,6 +6,7 @@ import Escalation from '@/lib/models/Escalation';
 import StatusHistory from '@/lib/models/StatusHistory';
 import User from '@/lib/models/User';
 import { getCurrentUser } from '@/lib/session';
+import { sendEscalationEmail } from '@/lib/resend';
 
 export async function POST(
   request: Request,
@@ -89,6 +90,27 @@ export async function POST(
     const populatedBatch = await Batch.findById(id)
       .populate('productId')
       .populate({ path: 'createdBy', select: 'name email role' });
+
+    // Send email alert to assignee
+    try {
+      await sendEscalationEmail(
+        assignee.email,
+        assignee.name,
+        {
+          batchNumber: populatedBatch.batchNumber,
+          productName: (populatedBatch.productId as any).name,
+          SKU: (populatedBatch.productId as any).SKU,
+          quantity: populatedBatch.quantity,
+          unit: (populatedBatch.productId as any).unit,
+          expiryDate: populatedBatch.expiryDate,
+          location: populatedBatch.location,
+        },
+        reason.trim(),
+        user.name
+      );
+    } catch (emailErr) {
+      console.error('Failed to send escalation email:', emailErr);
+    }
 
     return NextResponse.json({
       success: true,

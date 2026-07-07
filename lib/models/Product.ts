@@ -6,6 +6,7 @@ export interface IProduct extends Document {
   category: string;
   unit: string;
   defaultShelfLifeDays: number;
+  cost?: number;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -15,9 +16,13 @@ const ProductSchema = new Schema<IProduct>({
   SKU: { type: String, required: true, unique: true, trim: true },
   category: { type: String, required: true, trim: true, index: true },
   unit: { type: String, required: true, trim: true },
-  defaultShelfLifeDays: { type: Number, required: true, min: 0 }
+  defaultShelfLifeDays: { type: Number, required: true, min: 0 },
+  cost: { type: Number, min: 0, default: 0 }
 }, {
   timestamps: true
 });
 
-export default mongoose.models.Product || mongoose.model<IProduct>('Product', ProductSchema);
+if (mongoose.models.Product) {
+  delete (mongoose as any).models.Product;
+}
+export default mongoose.model<IProduct>('Product', ProductSchema);

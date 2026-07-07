@@ -174,18 +174,32 @@ export default function Sidebar() {
 
             {/* User Management for Superadmin */}
             {user.role === 'superadmin' && (
-              <Link 
-                href="/settings/users"
-                onClick={() => setIsMobileOpen(false)}
-                className={`flex items-center gap-3 px-4 py-3 rounded text-sm font-semibold transition-colors ${
-                  isActive('/settings/users') 
-                    ? 'text-secondary bg-surface-container-highest border-l-4 border-secondary' 
-                    : 'text-on-surface-variant hover:bg-surface-container-low'
-                }`}
-              >
-                <span className="material-symbols-outlined">manage_accounts</span>
-                <span>User Management</span>
-              </Link>
+              <>
+                <Link 
+                  href="/settings/users"
+                  onClick={() => setIsMobileOpen(false)}
+                  className={`flex items-center gap-3 px-4 py-3 rounded text-sm font-semibold transition-colors ${
+                    isActive('/settings/users') 
+                      ? 'text-secondary bg-surface-container-highest border-l-4 border-secondary' 
+                      : 'text-on-surface-variant hover:bg-surface-container-low'
+                  }`}
+                >
+                  <span className="material-symbols-outlined">manage_accounts</span>
+                  <span>User Management</span>
+                </Link>
+                <Link 
+                  href="/settings/costs"
+                  onClick={() => setIsMobileOpen(false)}
+                  className={`flex items-center gap-3 px-4 py-3 rounded text-sm font-semibold transition-colors ${
+                    isActive('/settings/costs') 
+                      ? 'text-secondary bg-surface-container-highest border-l-4 border-secondary' 
+                      : 'text-on-surface-variant hover:bg-surface-container-low'
+                  }`}
+                >
+                  <span className="material-symbols-outlined">payments</span>
+                  <span>Product Costs</span>
+                </Link>
+              </>
             )}
           </div>
 
@@ -302,17 +316,30 @@ export default function Sidebar() {
                 <span>Notifications</span>
               </Link>
               {user.role === 'superadmin' && (
-                <Link 
-                  href="/settings/users"
-                  className={`flex items-center gap-3 px-4 py-2 rounded text-sm transition-all duration-150 ${
-                    isActive('/settings/users') 
-                      ? 'text-secondary font-bold border-l-4 border-secondary bg-surface-container-highest' 
-                      : 'text-on-surface-variant hover:bg-surface-container-high'
-                  }`}
-                >
-                  <span className="material-symbols-outlined">manage_accounts</span>
-                  <span>User Manager</span>
-                </Link>
+                <>
+                  <Link 
+                    href="/settings/users"
+                    className={`flex items-center gap-3 px-4 py-2 rounded text-sm transition-all duration-150 ${
+                      isActive('/settings/users') 
+                        ? 'text-secondary font-bold border-l-4 border-secondary bg-surface-container-highest' 
+                        : 'text-on-surface-variant hover:bg-surface-container-high'
+                    }`}
+                  >
+                    <span className="material-symbols-outlined">manage_accounts</span>
+                    <span>User Manager</span>
+                  </Link>
+                  <Link 
+                    href="/settings/costs"
+                    className={`flex items-center gap-3 px-4 py-2 rounded text-sm transition-all duration-150 ${
+                      isActive('/settings/costs') 
+                        ? 'text-secondary font-bold border-l-4 border-secondary bg-surface-container-highest' 
+                        : 'text-on-surface-variant hover:bg-surface-container-high'
+                    }`}
+                  >
+                    <span className="material-symbols-outlined">payments</span>
+                    <span>Cost Manager</span>
+                  </Link>
+                </>
               )}
             </div>
           )}

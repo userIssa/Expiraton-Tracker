@@ -8,18 +8,7 @@ import { getCurrentUser } from '@/lib/session';
 
 // Helper to get simulated cost per unit by category
 function getCategoryCost(category: string): number {
-  switch (category) {
-    case 'Meat & Seafood':
-      return 25.0;
-    case 'Dairy':
-      return 3.5;
-    case 'Bakery':
-      return 4.5;
-    case 'Canned Goods':
-      return 5.0;
-    default:
-      return 10.0;
-  }
+  return 0.0;
 }
 
 export async function GET(request: Request) {
@@ -38,6 +27,7 @@ export async function GET(request: Request) {
 
     await dbConnect();
     const _forceUser = User;
+    const _forceProduct = Product;
 
     // 1. Fetch all batches and populate product
     const allBatches = await Batch.find().populate('productId');
@@ -81,7 +71,9 @@ export async function GET(request: Request) {
     // 3. Process batches for current state KPIs
     allBatches.forEach((batch: any) => {
       const category = batch.productId?.category || 'Other';
-      const cost = getCategoryCost(category);
+      const cost = batch.productId?.cost !== undefined && batch.productId.cost > 0 
+        ? batch.productId.cost 
+        : getCategoryCost(category);
 
       // Value at Risk (active inventory close to expiry: red, maroon, orange, yellow)
       if (['active', 'escalated', 'expired'].includes(batch.status)) {
@@ -110,7 +102,9 @@ export async function GET(request: Request) {
       if (!batchDoc || !batchDoc.productId) return;
 
       const category = batchDoc.productId.category || 'Other';
-      const cost = getCategoryCost(category);
+      const cost = batchDoc.productId.cost !== undefined && batchDoc.productId.cost > 0 
+        ? batchDoc.productId.cost 
+        : getCategoryCost(category);
 
       // Average Time to Clear
       if (lastEntry.toStatus === 'cleared') {
@@ -197,7 +191,10 @@ export async function GET(request: Request) {
         const trendItem = lossTrend.find((item) => item.month === entryMonthName);
         if (trendItem) {
           const category = lastEntry.batchId?.productId?.category || 'Other';
-          trendItem.value += lastEntry.batchId?.quantity * getCategoryCost(category);
+          const cost = lastEntry.batchId?.productId?.cost !== undefined && lastEntry.batchId.productId.cost > 0 
+            ? lastEntry.batchId.productId.cost 
+            : getCategoryCost(category);
+          trendItem.value += lastEntry.batchId?.quantity * cost;
         }
       }
     });

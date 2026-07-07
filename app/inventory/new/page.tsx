@@ -11,6 +11,7 @@ interface Product {
   category: string;
   unit: string;
   defaultShelfLifeDays: number;
+  cost?: number;
 }
 
 export default function RegisterBatchPage() {
@@ -28,6 +29,7 @@ export default function RegisterBatchPage() {
   const [productCategory, setProductCategory] = useState('Dairy');
   const [productUnit, setProductUnit] = useState('Litre Bottle');
   const [defaultShelfLife, setDefaultShelfLife] = useState('14');
+  const [productCost, setProductCost] = useState('');
 
   const [batchNumber, setBatchNumber] = useState('');
   const [quantity, setQuantity] = useState('');
@@ -128,6 +130,7 @@ export default function RegisterBatchPage() {
     setProductCategory(p.category);
     setProductUnit(p.unit);
     setDefaultShelfLife(String(p.defaultShelfLifeDays));
+    setProductCost(p.cost !== undefined ? String(p.cost) : '');
     setSkuSearch(p.SKU);
 
     // Auto-calculate expiry if mfg date is filled
@@ -143,6 +146,7 @@ export default function RegisterBatchPage() {
     setProductName('');
     setProductSku('');
     setSkuSearch('');
+    setProductCost('');
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -159,6 +163,7 @@ export default function RegisterBatchPage() {
         category: productCategory,
         unit: productUnit,
         defaultShelfLifeDays: Number(defaultShelfLife || 0),
+        cost: productCost ? Number(productCost) : undefined,
       },
       batchNumber,
       quantity: Number(quantity),
@@ -351,6 +356,27 @@ export default function RegisterBatchPage() {
                     min={0}
                     className="block w-full px-3 py-2 border border-outline-variant rounded bg-surface-container-lowest text-on-surface text-sm disabled:bg-surface-container disabled:text-on-surface-variant/80 focus:outline-none focus:border-secondary focus:ring-1 focus:ring-secondary transition-all"
                   />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-xs font-bold uppercase tracking-wider text-on-surface-variant mb-1 font-mono">
+                    Cost per Unit (₦) <span className="text-on-surface-variant/60 font-normal lowercase italic">(optional)</span>
+                  </label>
+                  <div className="relative">
+                    <span className="absolute left-3 top-2 text-on-surface-variant text-sm font-semibold font-sans">₦</span>
+                    <input
+                      type="number"
+                      step="0.01"
+                      min="0"
+                      value={productCost}
+                      onChange={(e) => setProductCost(e.target.value)}
+                      disabled={selectedProduct !== null}
+                      placeholder="e.g. 5.50"
+                      className="pl-7 pr-3 py-2 block w-full border border-outline-variant rounded bg-surface-container-lowest text-on-surface text-sm disabled:bg-surface-container disabled:text-on-surface-variant/80 focus:outline-none focus:border-secondary focus:ring-1 focus:ring-secondary transition-all"
+                    />
+                  </div>
                 </div>
               </div>
             </div>

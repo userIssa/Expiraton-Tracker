@@ -12,6 +12,7 @@ export default async function handler() {
   
   try {
     await dbConnect();
+    const _forceProduct = Product;
 
     // 1. Fetch all non-cleared batches
     const batches = await Batch.find({ status: { $ne: 'cleared' } }).populate('productId');

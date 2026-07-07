@@ -26,6 +26,13 @@ export default function CategoryThresholdsPage() {
   const [red, setRed] = useState('');
   const [editCategoryName, setEditCategoryName] = useState('');
 
+  // Form create states
+  const [newCategoryName, setNewCategoryName] = useState('');
+  const [newGreen, setNewGreen] = useState('30');
+  const [newYellow, setNewYellow] = useState('15');
+  const [newOrange, setNewOrange] = useState('7');
+  const [newRed, setNewRed] = useState('3');
+
   const fetchThresholds = () => {
     fetch('/api/settings/thresholds')
       .then((res) => {
@@ -96,6 +103,60 @@ export default function CategoryThresholdsPage() {
 
       setSuccess(`Threshold settings for "${editCategoryName}" updated successfully!`);
       setEditingId(null);
+      fetchThresholds();
+    } catch (err: any) {
+      setError(err.message);
+    }
+  };
+
+  const handleCreateCategory = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError('');
+    setSuccess('');
+
+    const catName = newCategoryName.trim();
+    if (!catName) {
+      setError('Category name cannot be empty.');
+      return;
+    }
+
+    if (thresholds.some((t) => t.category.toLowerCase() === catName.toLowerCase())) {
+      setError(`Category "${catName}" already exists.`);
+      return;
+    }
+
+    const g = Number(newGreen);
+    const y = Number(newYellow);
+    const o = Number(newOrange);
+    const r = Number(newRed);
+
+    if (!(g > y && y > o && o > r && r >= 0)) {
+      setError('Order constraint violation: Green must be greater than Yellow, Yellow greater than Orange, and Orange greater than Red (G > Y > O > R >= 0).');
+      return;
+    }
+
+    try {
+      const res = await fetch('/api/settings/thresholds', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          category: catName,
+          greenMinDays: g,
+          yellowMinDays: y,
+          orangeMinDays: o,
+          redMinDays: r,
+        }),
+      });
+
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Failed to create category thresholds');
+
+      setSuccess(`Category "${catName}" created successfully!`);
+      setNewCategoryName('');
+      setNewGreen('30');
+      setNewYellow('15');
+      setNewOrange('7');
+      setNewRed('3');
       fetchThresholds();
     } catch (err: any) {
       setError(err.message);
@@ -183,17 +244,29 @@ export default function CategoryThresholdsPage() {
               </div>
             </div>
 
-            {/* Editing form */}
-            {editingId && (
+            {/* Editing or Creating form */}
+            {editingId ? (
               <div className="bg-surface border border-outline-variant rounded-xl p-6 relative overflow-hidden space-y-4 shadow-xs h-fit animate-scale-up">
                 <div className="absolute top-0 left-0 w-full h-1 bg-primary"></div>
                 
                 <h2 className="text-lg font-bold text-on-surface flex items-center gap-2">
                   <span className="material-symbols-outlined text-primary fill-icon">edit</span>
-                  Edit Category: {editCategoryName}
+                  Edit Category
                 </h2>
 
                 <form onSubmit={handleSave} className="space-y-4">
+                  <div>
+                    <label className="block text-xs font-bold uppercase tracking-wider text-on-surface-variant mb-1 font-mono">
+                      Category Name
+                    </label>
+                    <input
+                      type="text"
+                      value={editCategoryName}
+                      onChange={(e) => setEditCategoryName(e.target.value)}
+                      required
+                      className="block w-full px-3 py-2 border border-outline-variant rounded bg-surface-container-lowest text-on-surface text-sm focus:outline-none focus:border-secondary focus:ring-1 focus:ring-secondary transition-all font-semibold"
+                    />
+                  </div>
                   <div className="grid grid-cols-2 gap-4">
                     <div>
                       <label className="block text-xs font-bold uppercase tracking-wider text-on-surface-variant mb-1 font-mono">
@@ -267,6 +340,100 @@ export default function CategoryThresholdsPage() {
                       className="px-4 py-2 bg-primary text-on-primary rounded font-bold text-xs hover:opacity-90 transition-opacity cursor-pointer"
                     >
                       Save Configuration
+                    </button>
+                  </div>
+                </form>
+              </div>
+            ) : (
+              <div className="bg-surface border border-outline-variant rounded-xl p-6 relative overflow-hidden space-y-4 shadow-xs h-fit">
+                <div className="absolute top-0 left-0 w-full h-1 bg-secondary"></div>
+                
+                <h2 className="text-lg font-bold text-on-surface flex items-center gap-2">
+                  <span className="material-symbols-outlined text-secondary fill-icon">add_box</span>
+                  Add New Category Threshold
+                </h2>
+
+                <form onSubmit={handleCreateCategory} className="space-y-4">
+                  <div>
+                    <label className="block text-xs font-bold uppercase tracking-wider text-on-surface-variant mb-1 font-mono">
+                      Category Name
+                    </label>
+                    <input
+                      type="text"
+                      placeholder="e.g. Frozen, Drinks, Snacks"
+                      value={newCategoryName}
+                      onChange={(e) => setNewCategoryName(e.target.value)}
+                      required
+                      className="block w-full px-3 py-2 border border-outline-variant rounded bg-surface-container-lowest text-on-surface text-sm focus:outline-none focus:border-secondary focus:ring-1 focus:ring-secondary transition-all"
+                    />
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-xs font-bold uppercase tracking-wider text-on-surface-variant mb-1 font-mono">
+                        Fresh Minimum (Days)
+                      </label>
+                      <input
+                        type="number"
+                        value={newGreen}
+                        onChange={(e) => setNewGreen(e.target.value)}
+                        required
+                        min={0}
+                        className="block w-full px-3 py-2 border border-outline-variant rounded bg-surface-container-lowest text-on-surface text-sm focus:outline-none focus:border-secondary focus:ring-1 focus:ring-secondary transition-all"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-bold uppercase tracking-wider text-on-surface-variant mb-1 font-mono">
+                        Monitor Level (Days)
+                      </label>
+                      <input
+                        type="number"
+                        value={newYellow}
+                        onChange={(e) => setNewYellow(e.target.value)}
+                        required
+                        min={0}
+                        className="block w-full px-3 py-2 border border-outline-variant rounded bg-surface-container-lowest text-on-surface text-sm focus:outline-none focus:border-secondary focus:ring-1 focus:ring-secondary transition-all"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-xs font-bold uppercase tracking-wider text-on-surface-variant mb-1 font-mono">
+                        Watch Level (Days)
+                      </label>
+                      <input
+                        type="number"
+                        value={newOrange}
+                        onChange={(e) => setNewOrange(e.target.value)}
+                        required
+                        min={0}
+                        className="block w-full px-3 py-2 border border-outline-variant rounded bg-surface-container-lowest text-on-surface text-sm focus:outline-none focus:border-secondary focus:ring-1 focus:ring-secondary transition-all"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-bold uppercase tracking-wider text-on-surface-variant mb-1 font-mono">
+                        Urgent Level (Days)
+                      </label>
+                      <input
+                        type="number"
+                        value={newRed}
+                        onChange={(e) => setNewRed(e.target.value)}
+                        required
+                        min={0}
+                        className="block w-full px-3 py-2 border border-outline-variant rounded bg-surface-container-lowest text-on-surface text-sm focus:outline-none focus:border-secondary focus:ring-1 focus:ring-secondary transition-all"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="pt-4 flex justify-end">
+                    <button
+                      type="submit"
+                      className="px-4 py-2 bg-secondary text-on-secondary rounded font-bold text-xs hover:opacity-90 transition-opacity cursor-pointer animate-fade-in"
+                    >
+                      Add Category
                     </button>
                   </div>
                 </form>

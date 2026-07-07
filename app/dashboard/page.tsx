@@ -39,6 +39,8 @@ interface AnalyticsData {
   topLossProducts: LossProduct[];
 }
 
+const Naira = () => <span className="font-sans mr-0.5 text-[0.82em] opacity-80 select-none font-semibold">₦</span>;
+
 export default function DashboardPage() {
   const [data, setData] = useState<AnalyticsData | null>(null);
   const [loading, setLoading] = useState(true);
@@ -140,8 +142,8 @@ export default function DashboardPage() {
             <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-urgency-red-text"></div>
             <div className="mb-2 pl-2">
               <span className="text-[10px] font-bold text-on-surface-variant uppercase tracking-wider font-mono">Value at Risk</span>
-              <div className="text-3xl font-bold text-urgency-red-text mt-1">
-                ${data.valueAtRisk.toLocaleString()}
+              <div className="text-3xl font-bold text-urgency-red-text mt-1 flex items-baseline">
+                <Naira />{data.valueAtRisk.toLocaleString()}
               </div>
             </div>
             <div className="pl-2 text-xs text-on-surface-variant font-medium">
@@ -169,8 +171,8 @@ export default function DashboardPage() {
             <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-urgency-maroon-text"></div>
             <div className="mb-2 pl-2">
               <span className="text-[10px] font-bold text-on-surface-variant uppercase tracking-wider font-mono">Total Lost (Wasted)</span>
-              <div className="text-3xl font-bold text-urgency-maroon-text mt-1">
-                ${data.totalLostValue.toLocaleString()}
+              <div className="text-3xl font-bold text-urgency-maroon-text mt-1 flex items-baseline">
+                <Naira />{data.totalLostValue.toLocaleString()}
               </div>
             </div>
             <div className="pl-2 text-xs text-on-surface-variant font-medium">
@@ -213,8 +215,8 @@ export default function DashboardPage() {
                       className="w-full bg-primary/85 rounded-t hover:bg-primary transition-all duration-300 relative flex justify-center" 
                       style={{ height: `${heightPercent}%` }}
                     >
-                      <div className="absolute -top-7 bg-primary text-on-primary text-[9px] font-bold font-mono px-1.5 py-0.5 rounded whitespace-nowrap z-10 shadow-sm">
-                        ${cat.value}
+                      <div className="absolute -top-7 bg-primary text-on-primary text-[9px] font-bold font-mono px-1.5 py-0.5 rounded whitespace-nowrap z-10 shadow-sm flex items-center">
+                        <span className="font-sans mr-0.5 text-[0.85em] opacity-90 select-none">₦</span>{cat.value}
                       </div>
                     </div>
                     <span className="text-[9px] font-bold text-on-surface-variant mt-2 absolute -bottom-5 font-mono truncate max-w-[45px]" title={cat.category}>
@@ -273,7 +275,7 @@ export default function DashboardPage() {
                       textAnchor="middle"
                       className="fill-on-surface font-mono font-bold text-[10px] opacity-0 group-hover:opacity-100 transition-opacity bg-surface"
                     >
-                      ${pt.val}
+                      <tspan fontFamily="sans-serif" fontWeight="600" opacity="0.8">₦</tspan>{pt.val}
                     </text>
                   </g>
                 ))}
@@ -388,7 +390,7 @@ export default function DashboardPage() {
                         {p.unitsLost}
                       </td>
                       <td className="p-3 text-right text-urgency-red-text font-bold">
-                        ${p.valueImpact.toLocaleString()}
+                        <Naira />{p.valueImpact.toLocaleString()}
                       </td>
                     </tr>
                   ))

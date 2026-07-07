@@ -22,6 +22,8 @@ export async function POST(request: Request) {
     }
 
     await dbConnect();
+    const _forceUser = User;
+    const _forceProduct = Product;
 
     // 1. Load config
     let config = await NotificationConfig.findOne();

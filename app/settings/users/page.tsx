@@ -17,6 +17,10 @@ export default function UserManagementPage() {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
 
+  // Search & Filters state
+  const [searchTerm, setSearchTerm] = useState('');
+  const [roleFilter, setRoleFilter] = useState('all');
+
   // Modals state
   const [modalType, setModalType] = useState<'create' | 'edit' | null>(null);
   const [selectedUser, setSelectedUser] = useState<User | null>(null);
@@ -176,6 +180,13 @@ export default function UserManagementPage() {
     }
   };
 
+  const filteredUsers = users.filter((u) => {
+    const matchesSearch = u.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
+                          u.email.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesRole = roleFilter === 'all' || u.role === roleFilter;
+    return matchesSearch && matchesRole;
+  });
+
   return (
     <div className="bg-background text-on-background font-body-md min-h-screen flex flex-col md:flex-row">
       <Sidebar />
@@ -216,70 +227,107 @@ export default function UserManagementPage() {
         {loading ? (
           <p className="text-on-surface-variant font-medium">Loading users...</p>
         ) : (
-          <div className="bg-surface border border-outline-variant rounded-xl overflow-hidden flex flex-col shadow-xs">
-            <div className="overflow-x-auto custom-scrollbar">
-              <table className="w-full text-left border-collapse min-w-[800px]">
-                <thead>
-                  <tr className="bg-surface-container-low border-b border-outline-variant">
-                    <th className="font-mono text-[10px] font-bold text-on-surface-variant uppercase tracking-wider py-3 px-4">User Details</th>
-                    <th className="font-mono text-[10px] font-bold text-on-surface-variant uppercase tracking-wider py-3 px-4 w-40">Role</th>
-                    <th className="font-mono text-[10px] font-bold text-on-surface-variant uppercase tracking-wider py-3 px-4">Assigned Locations</th>
-                    <th className="font-mono text-[10px] font-bold text-on-surface-variant uppercase tracking-wider py-3 px-4 w-32 text-right">Actions</th>
-                  </tr>
-                </thead>
-                <tbody className="text-sm divide-y divide-outline-variant/30 text-on-surface">
-                  {users.map((u) => (
-                    <tr 
-                      key={u._id}
-                      className="hover:bg-surface-container-low/50 transition-colors group border-l-4 border-transparent hover:border-secondary"
-                    >
-                      <td className="py-3.5 px-4">
-                        <div className="flex items-center gap-3">
-                          <div className="w-8 h-8 rounded-full bg-surface-container-high flex items-center justify-center text-xs font-bold font-mono text-on-surface-variant">
-                            {u.name.substring(0, 2).toUpperCase()}
-                          </div>
-                          <div>
-                            <div className="font-semibold text-on-surface">{u.name}</div>
-                            <div className="text-xs text-on-surface-variant font-mono">{u.email}</div>
-                          </div>
-                        </div>
-                      </td>
-                      <td className="py-3.5 px-4">
-                        <span className={`inline-flex px-2 py-0.5 rounded text-xs font-bold font-mono uppercase tracking-wider ${
-                          u.role === 'superadmin' ? 'bg-purple-100 text-purple-800' :
-                          u.role === 'manager' ? 'bg-blue-100 text-blue-800' :
-                          u.role === 'supervisor' ? 'bg-orange-100 text-orange-800' : 'bg-gray-100 text-gray-800'
-                        }`}>
-                          {u.role}
-                        </span>
-                      </td>
-                      <td className="py-3.5 px-4 font-mono text-xs text-on-surface-variant">
-                        {u.assignedLocations && u.assignedLocations.length > 0
-                          ? u.assignedLocations.join(', ')
-                          : 'All Locations (unscoped)'}
-                      </td>
-                      <td className="py-3.5 px-4 text-right">
-                        <div className="flex justify-end gap-1">
-                          <button
-                            onClick={() => openEditModal(u)}
-                            className="text-on-surface-variant hover:text-secondary p-1.5 rounded hover:bg-surface-container-high cursor-pointer"
-                            title="Edit User"
-                          >
-                            <span className="material-symbols-outlined text-[18px]">edit</span>
-                          </button>
-                          <button
-                            onClick={() => handleDelete(u)}
-                            className="text-on-surface-variant hover:text-urgency-red-text p-1.5 rounded hover:bg-surface-container-high cursor-pointer"
-                            title="Delete User"
-                          >
-                            <span className="material-symbols-outlined text-[18px]">delete</span>
-                          </button>
-                        </div>
-                      </td>
+          <div className="flex flex-col gap-6">
+            {/* Filters Toolbar */}
+            <div className="flex flex-col sm:flex-row gap-3 items-center bg-surface border border-outline-variant rounded-xl p-4 shadow-xs max-w-4xl">
+              <div className="flex-1 w-full relative">
+                <span className="material-symbols-outlined absolute left-3 top-2.5 text-on-surface-variant text-[18px]">search</span>
+                <input
+                  type="text"
+                  placeholder="Search by name or email..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="pl-9 pr-4 py-2 w-full border border-outline-variant rounded bg-surface-container-lowest text-on-surface text-sm focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all"
+                />
+              </div>
+              <div className="w-full sm:w-48">
+                <select
+                  value={roleFilter}
+                  onChange={(e) => setRoleFilter(e.target.value)}
+                  className="w-full px-3 py-2 border border-outline-variant rounded bg-surface-container-lowest text-on-surface text-sm focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary cursor-pointer font-mono"
+                >
+                  <option value="all">All Roles</option>
+                  <option value="store-hand">STORE-HAND</option>
+                  <option value="supervisor">SUPERVISOR</option>
+                  <option value="manager">MANAGER</option>
+                  <option value="superadmin">SUPERADMIN</option>
+                </select>
+              </div>
+            </div>
+
+            <div className="bg-surface border border-outline-variant rounded-xl overflow-hidden flex flex-col shadow-xs">
+              <div className="overflow-x-auto custom-scrollbar">
+                <table className="w-full text-left border-collapse min-w-[800px]">
+                  <thead>
+                    <tr className="bg-surface-container-low border-b border-outline-variant">
+                      <th className="font-mono text-[10px] font-bold text-on-surface-variant uppercase tracking-wider py-3 px-4">User Details</th>
+                      <th className="font-mono text-[10px] font-bold text-on-surface-variant uppercase tracking-wider py-3 px-4 w-40">Role</th>
+                      <th className="font-mono text-[10px] font-bold text-on-surface-variant uppercase tracking-wider py-3 px-4">Assigned Locations</th>
+                      <th className="font-mono text-[10px] font-bold text-on-surface-variant uppercase tracking-wider py-3 px-4 w-32 text-right">Actions</th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody className="text-sm divide-y divide-outline-variant/30 text-on-surface">
+                    {filteredUsers.length === 0 ? (
+                      <tr>
+                        <td colSpan={4} className="py-8 text-center text-on-surface-variant font-medium">
+                          No users found matching the filter criteria.
+                        </td>
+                      </tr>
+                    ) : (
+                      filteredUsers.map((u) => (
+                        <tr 
+                          key={u._id}
+                          className="hover:bg-surface-container-low/50 transition-colors group border-l-4 border-transparent hover:border-secondary"
+                        >
+                          <td className="py-3.5 px-4">
+                            <div className="flex items-center gap-3">
+                              <div className="w-8 h-8 rounded-full bg-surface-container-high flex items-center justify-center text-xs font-bold font-mono text-on-surface-variant">
+                                {u.name.substring(0, 2).toUpperCase()}
+                              </div>
+                              <div>
+                                <div className="font-semibold text-on-surface">{u.name}</div>
+                                <div className="text-xs text-on-surface-variant font-mono">{u.email}</div>
+                              </div>
+                            </div>
+                          </td>
+                          <td className="py-3.5 px-4">
+                            <span className={`inline-flex px-2 py-0.5 rounded text-xs font-bold font-mono uppercase tracking-wider ${
+                              u.role === 'superadmin' ? 'bg-purple-100 text-purple-800' :
+                              u.role === 'manager' ? 'bg-blue-100 text-blue-800' :
+                              u.role === 'supervisor' ? 'bg-orange-100 text-orange-800' : 'bg-gray-100 text-gray-800'
+                            }`}>
+                              {u.role}
+                            </span>
+                          </td>
+                          <td className="py-3.5 px-4 font-mono text-xs text-on-surface-variant">
+                            {u.assignedLocations && u.assignedLocations.length > 0
+                              ? u.assignedLocations.join(', ')
+                              : 'All Locations (unscoped)'}
+                          </td>
+                          <td className="py-3.5 px-4 text-right">
+                            <div className="flex justify-end gap-1">
+                              <button
+                                onClick={() => openEditModal(u)}
+                                className="text-on-surface-variant hover:text-secondary p-1.5 rounded hover:bg-surface-container-high cursor-pointer"
+                                title="Edit User"
+                              >
+                                <span className="material-symbols-outlined text-[18px]">edit</span>
+                              </button>
+                              <button
+                                onClick={() => handleDelete(u)}
+                                className="text-on-surface-variant hover:text-urgency-red-text p-1.5 rounded hover:bg-surface-container-high cursor-pointer"
+                                title="Delete User"
+                              >
+                                <span className="material-symbols-outlined text-[18px]">delete</span>
+                              </button>
+                            </div>
+                          </td>
+                        </tr>
+                      ))
+                    )}
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
         )}

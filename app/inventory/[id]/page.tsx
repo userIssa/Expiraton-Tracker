@@ -78,8 +78,27 @@ export default function BatchDetailPage({ params }: { params: Promise<{ id: stri
     }
   }, [id]);
 
+  const fetchSupervisors = async () => {
+    try {
+      const res = await fetch('/api/settings/users');
+      if (res.ok) {
+        const data = await res.json();
+        const filtered = data
+          .filter((u: any) => ['supervisor', 'manager', 'superadmin'].includes(u.role))
+          .map((u: any) => ({
+            id: u._id,
+            name: `${u.name} (${u.role.charAt(0).toUpperCase() + u.role.slice(1)})`,
+          }));
+        setSupervisors(filtered);
+      }
+    } catch (e) {
+      console.error('Failed to fetch supervisors:', e);
+    }
+  };
+
   useEffect(() => {
     fetchBatchDetails();
+    fetchSupervisors();
 
     // Get current user to see roles
     fetch('/api/auth/me')
@@ -88,13 +107,13 @@ export default function BatchDetailPage({ params }: { params: Promise<{ id: stri
         if (data?.authenticated) setCurrentUser(data.user);
       })
       .catch(() => {});
-
-    // Stub supervisors
-    setSupervisors([
-      { id: '6a48bcf27a12676b561df7d5', name: 'Sarah Supervisor (Supervisor)' },
-      { id: '6a48bcf27a12676b561df7d6', name: 'Michael Manager (Manager)' }
-    ]);
   }, [id, fetchBatchDetails]);
+
+  useEffect(() => {
+    if (supervisors.length > 0 && !supervisors.some(s => s.id === escalateAssignee)) {
+      setEscalateAssignee(supervisors[0].id);
+    }
+  }, [supervisors, escalateAssignee]);
 
   const openActionModal = (type: 'clear' | 'escalate') => {
     setModalType(type);

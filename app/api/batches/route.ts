@@ -150,6 +150,7 @@ export async function POST(request: Request) {
           category: productDetails.category.trim(),
           unit: productDetails.unit.trim(),
           defaultShelfLifeDays: Number(productDetails.defaultShelfLifeDays || 0),
+          cost: productDetails.cost !== undefined ? Number(productDetails.cost) : 0,
         });
       }
     } else {

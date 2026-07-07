@@ -106,31 +106,32 @@ export default function InventoryPage() {
   // Fetch supervisors list for escalation modal
   const fetchSupervisors = async () => {
     try {
-      // In step 1 we seeded users. We can fetch them. Let's create a quick API or fetch in seed.
-      // For now, since we have the super admin and supervisor in seeded data, we can query users
-      // Let's create an endpoint GET /api/users to list supervisors, or fetch all users in a helper.
-      // We will define user listing endpoint in manager settings, but we can query it or stub.
-      // Let's query `/api/users` which we'll build, or fallback to seeded emails.
-      const res = await fetch('/api/debug/seed'); // we can hit a lightweight user list API if available
-      // Let's fetch from a quick API route we will build in step 10, or create a simple fallback
-      const usersRes = await fetch('/api/auth/me'); // dummy, we'll write a simple /api/users endpoint
-    } catch (e) {}
+      const res = await fetch('/api/settings/users');
+      if (res.ok) {
+        const data = await res.json();
+        const filtered = data
+          .filter((u: any) => ['supervisor', 'manager', 'superadmin'].includes(u.role))
+          .map((u: any) => ({
+            id: u._id,
+            name: `${u.name} (${u.role.charAt(0).toUpperCase() + u.role.slice(1)})`,
+          }));
+        setSupervisors(filtered);
+      }
+    } catch (e) {
+      console.error('Failed to fetch supervisors:', e);
+    }
   };
 
   useEffect(() => {
     fetchBatches();
+    fetchSupervisors();
   }, [fetchBatches]);
 
   useEffect(() => {
-    // Quick load of supervisor list
-    // We will hardcode default supervisor IDs from seed or query them
-    // Our seed created Sarah Supervisor, let's fetch supervisors
-    // Let's build a quick API endpoint for users in step 11, or just load a fallback list
-    setSupervisors([
-      { id: '6a48bcf27a12676b561df7d5', name: 'Sarah Supervisor (Supervisor)' },
-      { id: '6a48bcf27a12676b561df7d6', name: 'Michael Manager (Manager)' }
-    ]);
-  }, []);
+    if (supervisors.length > 0 && !supervisors.some(s => s.id === escalateAssignee)) {
+      setEscalateAssignee(supervisors[0].id);
+    }
+  }, [supervisors, escalateAssignee]);
 
   const openActionModal = (batch: Batch, type: 'clear' | 'escalate') => {
     setSelectedBatch(batch);
