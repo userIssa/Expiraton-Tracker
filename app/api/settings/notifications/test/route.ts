@@ -60,6 +60,13 @@ export async function POST(request: Request) {
       emailItems
     );
 
+    if (!res.success) {
+      return NextResponse.json(
+        { error: res.error || 'Failed to send digest email' },
+        { status: 400 }
+      );
+    }
+
     return NextResponse.json(res);
   } catch (error: any) {
     console.error('POST test notification error:', error);
