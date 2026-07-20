@@ -1,20 +1,17 @@
 import mongoose from 'mongoose';
 import dns from 'dns';
 
-// Ensure DNS SRV resolution for MongoDB Atlas works across local networks/routers
-try {
-  dns.setServers(['8.8.8.8', '1.1.1.1']);
-} catch {
-  // Ignore if environment overrides DNS configuration
+// Only set custom DNS servers in non-serverless local node environments
+const isServerless = Boolean(process.env.NETLIFY || process.env.AWS_EXECUTION_ENV || process.env.VERCEL);
+if (!isServerless) {
+  try {
+    dns.setServers(['8.8.8.8', '1.1.1.1']);
+  } catch {
+    // Ignore if environment overrides DNS configuration
+  }
 }
 
-const MONGODB_URI = process.env.MONGODB_URI;
-
-if (!MONGODB_URI) {
-  throw new Error('Please define the MONGODB_URI environment variable inside .env.local');
-}
-
-// Global cached connection state for Next.js hot-reloads
+// Global cached connection state for Next.js hot-reloads and serverless invocation re-use
 let cached = (global as any).mongoose;
 
 if (!cached) {
@@ -22,10 +19,17 @@ if (!cached) {
 }
 
 async function dbConnect() {
-  try {
-    dns.setServers(['8.8.8.8', '1.1.1.1']);
-  } catch {
-    // Ignore if environment overrides DNS configuration
+  const uri = process.env.MONGODB_URI;
+  if (!uri) {
+    throw new Error('MONGODB_URI environment variable is missing. Please configure MONGODB_URI in your Netlify Site Configuration environment variables.');
+  }
+
+  if (!isServerless) {
+    try {
+      dns.setServers(['8.8.8.8', '1.1.1.1']);
+    } catch {
+      // Ignore if environment overrides DNS configuration
+    }
   }
 
   if (cached.conn) {
@@ -35,9 +39,10 @@ async function dbConnect() {
   if (!cached.promise) {
     const opts = {
       bufferCommands: false,
+      serverSelectionTimeoutMS: 10000,
     };
 
-    cached.promise = mongoose.connect(MONGODB_URI!, opts).then((mongooseInstance) => {
+    cached.promise = mongoose.connect(uri, opts).then((mongooseInstance) => {
       return mongooseInstance;
     });
   }

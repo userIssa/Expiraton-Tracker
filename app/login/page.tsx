@@ -30,9 +30,16 @@ export default function LoginPage() {
         body: JSON.stringify({ email: targetEmail, password: targetPassword }),
       });
 
-      const data = await res.json();
+      let data: any = {};
+      try {
+        data = await res.json();
+      } catch {
+        throw new Error(`Server connection error (${res.status} ${res.statusText})`);
+      }
+
       if (!res.ok) {
-        throw new Error(data.error || 'Login failed');
+        const errorMsg = data.details ? `${data.error}: ${data.details}` : (data.error || 'Login failed');
+        throw new Error(errorMsg);
       }
 
       // Redirect based on role
