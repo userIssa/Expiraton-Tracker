@@ -57,7 +57,7 @@ export async function POST(
       return NextResponse.json({ error: 'Assignee supervisor not found' }, { status: 404 });
     }
 
-    if (!['supervisor', 'manager', 'superadmin'].includes(assignee.role)) {
+    if (!['supervisor', 'manager', 'quality-assurance', 'superadmin'].includes(assignee.role)) {
       return NextResponse.json(
         { error: 'Assignee must have a supervisor, manager, or superadmin role' },
         { status: 400 }

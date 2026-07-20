@@ -7,7 +7,7 @@ import Link from 'next/link';
 interface UserInfo {
   name: string;
   email: string;
-  role: 'store-hand' | 'supervisor' | 'manager' | 'superadmin';
+  role: 'store-hand' | 'supervisor' | 'manager' | 'quality-assurance' | 'superadmin';
   assignedLocations: string[];
 }
 
@@ -49,12 +49,13 @@ export default function Sidebar() {
     'store-hand': 'Store-hand View',
     'supervisor': 'Supervisor View',
     'manager': 'Manager View',
+    'quality-assurance': 'Quality Assurance View',
     'superadmin': 'Superadmin View',
   };
 
   const isStorehand = user.role === 'store-hand';
   const isSupervisor = user.role === 'supervisor';
-  const isManagerOrAdmin = user.role === 'manager' || user.role === 'superadmin';
+  const isManagerOrAdmin = user.role === 'manager' || user.role === 'quality-assurance' || user.role === 'superadmin';
 
   // Helper to determine active state
   const isActive = (path: string) => pathname === path || pathname.startsWith(path + '/');
@@ -234,8 +235,8 @@ export default function Sidebar() {
           )}
         </div>
 
-        {/* Action Button for Store-hand/Supervisor/Manager */}
-        {['store-hand', 'supervisor', 'manager', 'superadmin'].includes(user.role) && (
+        {/* Action Button for Store-hand/Supervisor/Manager/QA */}
+        {['store-hand', 'supervisor', 'manager', 'quality-assurance', 'superadmin'].includes(user.role) && (
           <div className="px-4 mb-6">
             <Link 
               href="/inventory/new"

@@ -13,7 +13,7 @@ export async function GET(request: Request) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    if (!['supervisor', 'manager', 'superadmin'].includes(user.role)) {
+    if (!['supervisor', 'manager', 'quality-assurance', 'superadmin'].includes(user.role)) {
       return NextResponse.json(
         { error: 'Forbidden: only supervisors, managers, or admins can view escalations' },
         { status: 403 }

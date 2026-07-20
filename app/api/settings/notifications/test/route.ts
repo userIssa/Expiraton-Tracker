@@ -14,7 +14,7 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    if (!['manager', 'superadmin'].includes(user.role)) {
+    if (!['manager', 'quality-assurance', 'superadmin'].includes(user.role)) {
       return NextResponse.json(
         { error: 'Forbidden: only managers and admins can trigger test digests' },
         { status: 403 }

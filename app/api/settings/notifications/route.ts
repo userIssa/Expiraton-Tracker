@@ -11,7 +11,7 @@ export async function GET(request: Request) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    if (!['manager', 'superadmin'].includes(user.role)) {
+    if (!['manager', 'quality-assurance', 'superadmin'].includes(user.role)) {
       return NextResponse.json(
         { error: 'Forbidden: only managers and admins can view notification settings' },
         { status: 403 }
@@ -48,7 +48,7 @@ export async function PUT(request: Request) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    if (!['manager', 'superadmin'].includes(user.role)) {
+    if (!['manager', 'quality-assurance', 'superadmin'].includes(user.role)) {
       return NextResponse.json(
         { error: 'Forbidden: only managers and admins can edit notification settings' },
         { status: 403 }

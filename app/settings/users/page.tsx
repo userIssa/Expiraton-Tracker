@@ -7,7 +7,7 @@ interface User {
   _id: string;
   name: string;
   email: string;
-  role: 'store-hand' | 'supervisor' | 'manager' | 'superadmin';
+  role: 'store-hand' | 'supervisor' | 'manager' | 'quality-assurance' | 'superadmin';
   assignedLocations: string[];
 }
 
@@ -29,7 +29,7 @@ export default function UserManagementPage() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [role, setRole] = useState<'store-hand' | 'supervisor' | 'manager' | 'superadmin'>('store-hand');
+  const [role, setRole] = useState<'store-hand' | 'supervisor' | 'manager' | 'quality-assurance' | 'superadmin'>('store-hand');
   const [locationsInput, setLocationsInput] = useState('');
   
   const [actionLoading, setActionLoading] = useState(false);
@@ -250,6 +250,7 @@ export default function UserManagementPage() {
                   <option value="store-hand">STORE-HAND</option>
                   <option value="supervisor">SUPERVISOR</option>
                   <option value="manager">MANAGER</option>
+                  <option value="quality-assurance">QUALITY ASSURANCE</option>
                   <option value="superadmin">SUPERADMIN</option>
                 </select>
               </div>
@@ -293,6 +294,7 @@ export default function UserManagementPage() {
                           <td className="py-3.5 px-4">
                             <span className={`inline-flex px-2 py-0.5 rounded text-xs font-bold font-mono uppercase tracking-wider ${
                               u.role === 'superadmin' ? 'bg-purple-100 text-purple-800' :
+                              u.role === 'quality-assurance' ? 'bg-teal-100 text-teal-800' :
                               u.role === 'manager' ? 'bg-blue-100 text-blue-800' :
                               u.role === 'supervisor' ? 'bg-orange-100 text-orange-800' : 'bg-gray-100 text-gray-800'
                             }`}>
@@ -407,6 +409,7 @@ export default function UserManagementPage() {
                     <option value="store-hand">Store-hand</option>
                     <option value="supervisor">Supervisor</option>
                     <option value="manager">Manager</option>
+                    <option value="quality-assurance">Quality Assurance</option>
                     <option value="superadmin">Superadmin</option>
                   </select>
                 </div>

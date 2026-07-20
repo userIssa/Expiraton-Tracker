@@ -13,8 +13,8 @@ export async function PATCH(
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    // Only managers and superadmins can modify product costs/settings
-    if (!['manager', 'superadmin'].includes(user.role)) {
+    // Only managers, quality assurance, and superadmins can modify product costs/settings
+    if (!['manager', 'quality-assurance', 'superadmin'].includes(user.role)) {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
     }
 

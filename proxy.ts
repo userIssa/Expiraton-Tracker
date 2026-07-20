@@ -85,6 +85,7 @@ function getDefaultRoute(role: string): string {
     case 'supervisor':
       return '/escalations';
     case 'manager':
+    case 'quality-assurance':
     case 'superadmin':
       return '/dashboard';
     default:
@@ -96,17 +97,17 @@ function checkRoleAccess(pathname: string, role: string): boolean {
   if (pathname === '/') return true;
 
   if (pathname.startsWith('/inventory')) {
-    return ['store-hand', 'supervisor', 'manager', 'superadmin'].includes(role);
+    return ['store-hand', 'supervisor', 'manager', 'quality-assurance', 'superadmin'].includes(role);
   }
   if (pathname.startsWith('/escalations')) {
-    return ['supervisor', 'manager', 'superadmin'].includes(role);
+    return ['supervisor', 'manager', 'quality-assurance', 'superadmin'].includes(role);
   }
   if (
     pathname.startsWith('/dashboard') ||
     pathname.startsWith('/settings/thresholds') ||
     pathname.startsWith('/settings/notifications')
   ) {
-    return ['manager', 'superadmin'].includes(role);
+    return ['manager', 'quality-assurance', 'superadmin'].includes(role);
   }
   if (pathname.startsWith('/settings/users')) {
     return role === 'superadmin';

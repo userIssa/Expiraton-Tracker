@@ -14,15 +14,15 @@ export async function GET(request: Request) {
     await dbConnect();
     const _forceUser = User;
 
-    // If manager or superadmin, they get the full list of users (excluding passwordHash)
-    if (['manager', 'superadmin'].includes(user.role)) {
+    // If manager, quality-assurance, or superadmin, they get the full list of users (excluding passwordHash)
+    if (['manager', 'quality-assurance', 'superadmin'].includes(user.role)) {
       const users = await User.find().select('-passwordHash').sort({ name: 1 });
       return NextResponse.json(users);
     }
 
-    // Otherwise, they can only fetch supervisors, managers, and superadmins for escalation dropdowns
+    // Otherwise, they can only fetch supervisors, managers, quality-assurance, and superadmins for escalation dropdowns
     const assignableUsers = await User.find({
-      role: { $in: ['supervisor', 'manager', 'superadmin'] }
+      role: { $in: ['supervisor', 'manager', 'quality-assurance', 'superadmin'] }
     }).select('name email role').sort({ name: 1 });
 
     return NextResponse.json(assignableUsers);
@@ -42,8 +42,8 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    // Only manager and superadmin can register new users
-    if (!['manager', 'superadmin'].includes(user.role)) {
+    // Only manager, quality-assurance, and superadmin can register new users
+    if (!['manager', 'quality-assurance', 'superadmin'].includes(user.role)) {
       return NextResponse.json({ error: 'Forbidden: only managers can register users' }, { status: 403 });
     }
 

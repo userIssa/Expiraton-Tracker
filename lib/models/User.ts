@@ -4,7 +4,7 @@ export interface IUser extends Document {
   name: string;
   email: string;
   passwordHash: string;
-  role: 'store-hand' | 'supervisor' | 'manager' | 'superadmin';
+  role: 'store-hand' | 'supervisor' | 'manager' | 'quality-assurance' | 'superadmin';
   assignedLocations: string[];
   notifyByEmail: boolean;
   createdAt: Date;
@@ -17,7 +17,7 @@ const UserSchema = new Schema<IUser>({
   passwordHash: { type: String, required: true },
   role: { 
     type: String, 
-    enum: ['store-hand', 'supervisor', 'manager', 'superadmin'], 
+    enum: ['store-hand', 'supervisor', 'manager', 'quality-assurance', 'superadmin'], 
     default: 'store-hand' 
   },
   assignedLocations: { type: [String], default: [] },

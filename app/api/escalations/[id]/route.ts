@@ -18,7 +18,7 @@ export async function PATCH(
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    if (!['supervisor', 'manager', 'superadmin'].includes(user.role)) {
+    if (!['supervisor', 'manager', 'quality-assurance', 'superadmin'].includes(user.role)) {
       return NextResponse.json(
         { error: 'Forbidden: only supervisors, managers, or admins can action escalations' },
         { status: 403 }
@@ -57,7 +57,7 @@ export async function PATCH(
       }
       
       const newAssignee = await User.findById(assignedTo);
-      if (!newAssignee || !['supervisor', 'manager', 'superadmin'].includes(newAssignee.role)) {
+      if (!newAssignee || !['supervisor', 'manager', 'quality-assurance', 'superadmin'].includes(newAssignee.role)) {
         return NextResponse.json({ error: 'Invalid supervisor for reassignment' }, { status: 400 });
       }
 

@@ -84,7 +84,7 @@ export default function BatchDetailPage({ params }: { params: Promise<{ id: stri
       if (res.ok) {
         const data = await res.json();
         const filtered = data
-          .filter((u: any) => ['supervisor', 'manager', 'superadmin'].includes(u.role))
+          .filter((u: any) => ['supervisor', 'manager', 'quality-assurance', 'superadmin'].includes(u.role))
           .map((u: any) => ({
             id: u._id,
             name: `${u.name} (${u.role.charAt(0).toUpperCase() + u.role.slice(1)})`,

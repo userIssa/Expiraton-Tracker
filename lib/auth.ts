@@ -14,7 +14,7 @@ const JWT_SECRET = getJwtSecret();
 export interface JWTPayload {
   userId: string;
   email: string;
-  role: 'store-hand' | 'supervisor' | 'manager' | 'superadmin';
+  role: 'store-hand' | 'supervisor' | 'manager' | 'quality-assurance' | 'superadmin';
   name: string;
   assignedLocations: string[];
 }
