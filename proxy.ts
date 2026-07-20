@@ -28,8 +28,14 @@ export async function proxy(request: NextRequest) {
     return NextResponse.next();
   }
 
-  // Allow developer seed route
+  // Allow developer seed route in development mode only
   if (pathname.startsWith('/api/debug/')) {
+    if (process.env.NODE_ENV === 'production') {
+      return NextResponse.json(
+        { error: 'Debug endpoints are disabled in production' },
+        { status: 403 }
+      );
+    }
     return NextResponse.next();
   }
 

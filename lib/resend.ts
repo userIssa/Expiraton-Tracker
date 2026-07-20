@@ -4,6 +4,9 @@ import { Resend } from 'resend';
 const apiKey = process.env.RESEND_API_KEY || 're_mockKey123';
 const isMock = apiKey.startsWith('re_mock') || !process.env.RESEND_API_KEY;
 
+const SENDER_EMAIL = process.env.RESEND_FROM_EMAIL || 'ExpireGuard Pro <onboarding@resend.dev>';
+const APP_URL = (process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000').replace(/\/$/, '');
+
 export const resend = !isMock ? new Resend(apiKey) : null;
 
 interface EmailBatchData {
@@ -95,7 +98,7 @@ export async function sendDigestEmail(
 
   try {
     const response = await resend!.emails.send({
-      from: 'ExpireGuard Pro <onboarding@resend.dev>',
+      from: SENDER_EMAIL,
       to: recipients,
       subject: subject,
       html: html,
@@ -187,7 +190,7 @@ export async function sendEscalationEmail(
       </div>
 
       <p style="font-size: 14px; text-align: center; margin-top: 30px;">
-        <a href="http://localhost:3000/escalations" style="background-color: #ba1a1a; color: white; padding: 10px 20px; text-decoration: none; font-weight: bold; border-radius: 4px; display: inline-block;">
+        <a href="${APP_URL}/escalations" style="background-color: #ba1a1a; color: white; padding: 10px 20px; text-decoration: none; font-weight: bold; border-radius: 4px; display: inline-block;">
           Go to Escalation Queue
         </a>
       </p>
@@ -210,7 +213,7 @@ export async function sendEscalationEmail(
 
   try {
     const response = await resend!.emails.send({
-      from: 'ExpireGuard Pro <onboarding@resend.dev>',
+      from: SENDER_EMAIL,
       to: [recipientEmail],
       subject: subject,
       html: html,

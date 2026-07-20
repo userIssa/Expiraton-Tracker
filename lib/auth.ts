@@ -1,6 +1,17 @@
 import jwt from 'jsonwebtoken';
 
-const JWT_SECRET = process.env.JWT_SECRET || 'fallback-secret-for-dev';
+function getJwtSecret(): string {
+  const secret = process.env.JWT_SECRET;
+  if (!secret) {
+    if (process.env.NODE_ENV === 'production') {
+      throw new Error('CRITICAL SECURITY ERROR: JWT_SECRET environment variable must be defined in production!');
+    }
+    return 'fallback-secret-for-dev';
+  }
+  return secret;
+}
+
+const JWT_SECRET = getJwtSecret();
 
 export interface JWTPayload {
   userId: string;

@@ -45,8 +45,8 @@
   --color-urgency-maroon-border: #6e000030;
   --color-urgency-maroon-text: #6e0000;
 
-  --font-sans: var(--font-inter);
-  --font-mono: var(--font-jetbrains-mono);
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
 }
 
 body {

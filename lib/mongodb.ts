@@ -1,4 +1,12 @@
 import mongoose from 'mongoose';
+import dns from 'dns';
+
+// Ensure DNS SRV resolution for MongoDB Atlas works across local networks/routers
+try {
+  dns.setServers(['8.8.8.8', '1.1.1.1']);
+} catch {
+  // Ignore if environment overrides DNS configuration
+}
 
 const MONGODB_URI = process.env.MONGODB_URI;
 
@@ -14,6 +22,12 @@ if (!cached) {
 }
 
 async function dbConnect() {
+  try {
+    dns.setServers(['8.8.8.8', '1.1.1.1']);
+  } catch {
+    // Ignore if environment overrides DNS configuration
+  }
+
   if (cached.conn) {
     return cached.conn;
   }

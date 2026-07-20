@@ -50,12 +50,6 @@ export default function LoginPage() {
     }
   };
 
-  const handleQuickLogin = (roleEmail: string) => {
-    setEmail(roleEmail);
-    setPassword('Password123');
-    handleLogin(null as any, roleEmail, 'Password123');
-  };
-
   return (
     <div className="min-h-screen bg-background flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md text-center">
@@ -126,52 +120,6 @@ export default function LoginPage() {
               </button>
             </div>
           </form>
-
-          {/* Quick Login Section */}
-          <div className="mt-8 pt-6 border-t border-outline-variant">
-            <span className="block text-xs font-bold uppercase tracking-wider text-on-surface-variant mb-3 font-mono text-center">
-              Quick Login (Dev Seeds)
-            </span>
-            <div className="grid grid-cols-2 gap-2">
-              <button
-                type="button"
-                onClick={() => handleQuickLogin('storehand1@example.com')}
-                disabled={loading}
-                className="py-2 px-3 border border-outline-variant hover:border-secondary rounded text-xs font-bold text-on-surface hover:bg-surface-container-low transition-all text-left flex items-center justify-between cursor-pointer"
-              >
-                <span>Store-hand</span>
-                <span className="material-symbols-outlined text-secondary text-[16px]">chevron_right</span>
-              </button>
-              <button
-                type="button"
-                onClick={() => handleQuickLogin('supervisor1@example.com')}
-                disabled={loading}
-                className="py-2 px-3 border border-outline-variant hover:border-secondary rounded text-xs font-bold text-on-surface hover:bg-surface-container-low transition-all text-left flex items-center justify-between cursor-pointer"
-              >
-                <span>Supervisor</span>
-                <span className="material-symbols-outlined text-secondary text-[16px]">chevron_right</span>
-              </button>
-              <button
-                type="button"
-                onClick={() => handleQuickLogin('manager1@example.com')}
-                disabled={loading}
-                className="py-2 px-3 border border-outline-variant hover:border-secondary rounded text-xs font-bold text-on-surface hover:bg-surface-container-low transition-all text-left flex items-center justify-between cursor-pointer"
-              >
-                <span>Manager</span>
-                <span className="material-symbols-outlined text-secondary text-[16px]">chevron_right</span>
-              </button>
-              <button
-                type="button"
-                onClick={() => handleQuickLogin('admin1@example.com')}
-                disabled={loading}
-                className="py-2 px-3 border border-outline-variant hover:border-secondary rounded text-xs font-bold text-on-surface hover:bg-surface-container-low transition-all text-left flex items-center justify-between cursor-pointer"
-              >
-                <span>Superadmin</span>
-                <span className="material-symbols-outlined text-secondary text-[16px]">chevron_right</span>
-              </button>
-            </div>
-          </div>
-
         </div>
       </div>
     </div>
