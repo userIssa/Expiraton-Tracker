@@ -112,7 +112,7 @@ export default async function handler() {
           const frequencyLabel = isDaily ? 'Daily' : 'Weekly';
           await sendDigestEmail(
             config.recipients,
-            `ExpireGuard Pro - ${frequencyLabel} Inventory Expiration Digest (${alertBatches.length} alerts)`,
+            `Genesis Expiry360 - ${frequencyLabel} Inventory Expiration Digest (${alertBatches.length} alerts)`,
             emailItems
           );
         } else {

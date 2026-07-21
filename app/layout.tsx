@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "ExpireGuard Pro - Expiration Tracker",
-  description: "Retail and warehouse product expiration tracker",
+  title: "Genesis Expiry360 - Genesis Group Inventory Tracker",
+  description: "360-Degree Inventory Expiry & Risk Intelligence System for Genesis Group",
 };
 
 export default function RootLayout({

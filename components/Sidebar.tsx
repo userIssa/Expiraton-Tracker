@@ -66,7 +66,7 @@ export default function Sidebar() {
       <header className="md:hidden flex justify-between items-center w-full px-4 h-16 bg-surface border-b border-outline-variant z-50 sticky top-0">
         <div className="flex items-center gap-2">
           <span className="material-symbols-outlined text-primary fill-icon text-[24px]">inventory_2</span>
-          <span className="text-xl font-bold text-primary">ExpireGuard</span>
+          <span className="text-xl font-bold text-primary">Genesis Expiry360</span>
         </div>
         <div className="flex items-center gap-4">
           <button 
@@ -221,7 +221,7 @@ export default function Sidebar() {
         <div className="px-6 mb-8">
           <div className="flex items-center gap-2 mb-2">
             <span className="material-symbols-outlined text-primary fill-icon text-[28px]">inventory_2</span>
-            <span className="text-xl font-bold text-primary">ExpireGuard Pro</span>
+            <span className="text-xl font-bold text-primary">Genesis Expiry360</span>
           </div>
           <div className="font-bold text-sm text-on-surface">{user.name}</div>
           <div className="font-mono text-[10px] font-bold text-on-surface-variant uppercase tracking-wider">

@@ -64,10 +64,10 @@ export default function LoginPage() {
           inventory_2
         </span>
         <h2 className="text-3xl font-bold tracking-tight text-primary">
-          ExpireGuard Pro
+          Genesis Expiry360
         </h2>
         <p className="mt-2 text-sm text-on-surface-variant font-medium">
-          Product Expiration & Inventory Risk Tracker
+          Genesis Group Inventory & Expiry Risk Tracker
         </p>
       </div>
 

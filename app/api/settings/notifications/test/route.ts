@@ -56,7 +56,7 @@ export async function POST(request: Request) {
     // 3. Trigger send
     const res = await sendDigestEmail(
       config.recipients,
-      `ExpireGuard Pro Test Digest - ${batches.length} Alerts`,
+      `Genesis Expiry360 Test Digest - ${batches.length} Alerts`,
       emailItems
     );
 

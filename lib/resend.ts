@@ -4,7 +4,7 @@ import { Resend } from 'resend';
 const apiKey = process.env.RESEND_API_KEY || 're_mockKey123';
 const isMock = apiKey.startsWith('re_mock') || !process.env.RESEND_API_KEY;
 
-const SENDER_EMAIL = process.env.RESEND_FROM_EMAIL || 'ExpireGuard Pro <onboarding@resend.dev>';
+const SENDER_EMAIL = process.env.RESEND_FROM_EMAIL || 'Genesis Expiry360 <onboarding@resend.dev>';
 const APP_URL = (process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000').replace(/\/$/, '');
 
 export const resend = !isMock ? new Resend(apiKey) : null;
@@ -17,43 +17,51 @@ interface EmailBatchData {
   unit: string;
   expiryDate: Date;
   location: string;
-  currentUrgencyColor: string;
+  currentUrgencyColor?: string;
 }
 
 export async function sendDigestEmail(
   recipients: string[],
   subject: string,
-  expiringBatches: EmailBatchData[]
-) {
-  if (recipients.length === 0) {
-    console.log('No recipients configured for digest email.');
-    return { success: false, reason: 'No recipients' };
+  batches: EmailBatchData[]
+): Promise<{ success: boolean; id?: string; error?: string; mock?: boolean }> {
+  if (!recipients || recipients.length === 0) {
+    return { success: false, error: 'No recipient email addresses specified' };
   }
 
-  // Construct email body
-  const rows = expiringBatches.map((b) => {
-    const dateStr = new Date(b.expiryDate).toLocaleDateString('en-US', {
-      year: 'numeric',
+  const rows = batches.map((b) => {
+    const expiryStr = new Date(b.expiryDate).toLocaleDateString('en-US', {
       month: 'short',
       day: 'numeric',
+      year: 'numeric',
     });
-    
-    let colorHex = '#146c2e'; // green
-    if (b.currentUrgencyColor === 'maroon') colorHex = '#6e0000';
-    else if (b.currentUrgencyColor === 'red') colorHex = '#ba1a1a';
-    else if (b.currentUrgencyColor === 'orange') colorHex = '#9e7500';
-    else if (b.currentUrgencyColor === 'yellow') colorHex = '#735c00';
+
+    let urgencyLabel = 'Safe';
+    let urgencyBg = '#e8f5e9';
+    let urgencyColor = '#2e7d32';
+
+    if (b.currentUrgencyColor === 'maroon' || b.currentUrgencyColor === 'red') {
+      urgencyLabel = b.currentUrgencyColor === 'maroon' ? 'EXPIRED' : 'CRITICAL';
+      urgencyBg = '#ffebee';
+      urgencyColor = '#c62828';
+    } else if (b.currentUrgencyColor === 'orange' || b.currentUrgencyColor === 'yellow') {
+      urgencyLabel = 'WARNING';
+      urgencyBg = '#fff3e0';
+      urgencyColor = '#ef6c00';
+    }
 
     return `
-      <tr>
-        <td style="padding: 10px; border-bottom: 1px solid #eeeeee;">
+      <tr style="border-bottom: 1px solid #eeeeee;">
+        <td style="padding: 10px;">
           <strong>${b.productName}</strong><br/>
-          <small style="color: #666666;">SKU: ${b.SKU} | Batch: #${b.batchNumber}</small>
+          <span style="font-size: 11px; color: #666666;">SKU: ${b.SKU} | Batch: ${b.batchNumber}</span>
         </td>
-        <td style="padding: 10px; border-bottom: 1px solid #eeeeee;">${b.quantity} ${b.unit}</td>
-        <td style="padding: 10px; border-bottom: 1px solid #eeeeee; font-family: monospace;">${b.location}</td>
-        <td style="padding: 10px; border-bottom: 1px solid #eeeeee; color: ${colorHex}; font-weight: bold;">
-          ${dateStr} (${b.currentUrgencyColor.toUpperCase()})
+        <td style="padding: 10px;">${b.quantity} ${b.unit}</td>
+        <td style="padding: 10px;">${b.location}</td>
+        <td style="padding: 10px;">
+          <span style="background-color: ${urgencyBg}; color: ${urgencyColor}; padding: 3px 8px; border-radius: 4px; font-weight: bold; font-size: 11px;">
+            ${urgencyLabel} (${expiryStr})
+          </span>
         </td>
       </tr>
     `;
@@ -62,7 +70,7 @@ export async function sendDigestEmail(
   const html = `
     <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #dddddd; border-radius: 8px;">
       <h2 style="color: #6e0000; border-bottom: 2px solid #6e0000; padding-bottom: 10px; margin-top: 0;">
-        ExpireGuard Pro Digest
+        Genesis Expiry360 Digest
       </h2>
       <p style="font-size: 14px; color: #333333;">
         The following inventory stock batches are nearing expiration or have already expired. Please take action immediately (clear or escalate).
@@ -81,7 +89,7 @@ export async function sendDigestEmail(
         </tbody>
       </table>
       <div style="margin-top: 30px; font-size: 11px; color: #777777; border-top: 1px solid #dddddd; padding-top: 10px; text-align: center;">
-        ExpireGuard Pro &copy; 2026. This is an automated notification.
+        Genesis Expiry360 &copy; 2026. Genesis Group Internal System.
       </div>
     </div>
   `;
@@ -90,8 +98,8 @@ export async function sendDigestEmail(
     console.log(`\n=================== [MOCK EMAIL SENT via Resend] ===================`);
     console.log(`To: ${recipients.join(', ')}`);
     console.log(`Subject: ${subject}`);
-    console.log(`Items count: ${expiringBatches.length}`);
-    console.log(`HTML Output summary: ${expiringBatches.map(b => b.productName).join(', ')}`);
+    console.log(`Items count: ${batches.length}`);
+    console.log(`HTML Output summary: ${batches.map(b => b.productName).join(', ')}`);
     console.log(`====================================================================\n`);
     return { success: true, mock: true };
   }
@@ -196,7 +204,7 @@ export async function sendEscalationEmail(
       </p>
 
       <div style="margin-top: 30px; font-size: 11px; color: #777777; border-top: 1px solid #dddddd; padding-top: 10px; text-align: center;">
-        ExpireGuard Pro &copy; 2026. This is an automated notification.
+        Genesis Expiry360 &copy; 2026. Genesis Group Internal System.
       </div>
     </div>
   `;
