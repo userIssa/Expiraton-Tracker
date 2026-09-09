@@ -37,6 +37,12 @@ export default function InventoryPage() {
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
   const [categoryFilter, setCategoryFilter] = useState('');
+  const [categories, setCategories] = useState<string[]>([
+    'Dairy',
+    'Bakery',
+    'Meat & Seafood',
+    'Canned Goods',
+  ]);
   const [urgencyFilter, setUrgencyFilter] = useState('');
   const [supervisors, setSupervisors] = useState<any[]>([]);
 
@@ -125,6 +131,16 @@ export default function InventoryPage() {
   useEffect(() => {
     fetchBatches();
     fetchSupervisors();
+
+    // Fetch dynamic categories
+    fetch('/api/categories')
+      .then((res) => (res.ok ? res.json() : null))
+      .then((data) => {
+        if (data && data.categories && data.categories.length > 0) {
+          setCategories(data.categories);
+        }
+      })
+      .catch(() => {});
   }, [fetchBatches]);
 
   useEffect(() => {
@@ -251,12 +267,22 @@ export default function InventoryPage() {
               <h1 className="text-3xl font-bold tracking-tight text-primary">Inventory Management</h1>
               <p className="text-sm text-on-surface-variant font-medium">Track, monitor, and clear expiring stock batches.</p>
             </div>
-            <Link
-              href="/inventory/new"
-              className="md:hidden bg-primary text-on-primary py-2.5 rounded text-center font-bold text-sm hover:opacity-90 transition-opacity cursor-pointer"
-            >
-              Register New Stock
-            </Link>
+            <div className="flex items-center gap-2">
+              <Link
+                href="/inventory/new?mode=import"
+                className="inline-flex items-center gap-1.5 px-3 py-2 border border-outline-variant bg-surface hover:bg-surface-container-high rounded text-xs font-bold text-on-surface transition-colors cursor-pointer shadow-xs"
+              >
+                <span className="material-symbols-outlined text-secondary text-[18px]">upload_file</span>
+                <span>Import Spreadsheet</span>
+              </Link>
+              <Link
+                href="/inventory/new"
+                className="inline-flex items-center gap-1.5 bg-primary text-on-primary px-3.5 py-2 rounded text-xs font-bold hover:opacity-90 transition-opacity cursor-pointer shadow-xs"
+              >
+                <span className="material-symbols-outlined fill-icon text-[18px]">add</span>
+                <span>Register Stock</span>
+              </Link>
+            </div>
           </div>
 
           {/* Urgency Summary Strip */}
@@ -340,10 +366,11 @@ export default function InventoryPage() {
                 className="px-3 py-2 bg-surface-container-lowest border border-outline-variant rounded text-sm text-on-surface focus:outline-none focus:border-secondary cursor-pointer min-w-[140px]"
               >
                 <option value="">All Categories</option>
-                <option value="Dairy">Dairy</option>
-                <option value="Bakery">Bakery</option>
-                <option value="Meat & Seafood">Meat & Seafood</option>
-                <option value="Canned Goods">Canned Goods</option>
+                {categories.map((cat) => (
+                  <option key={cat} value={cat}>
+                    {cat}
+                  </option>
+                ))}
               </select>
 
               {(categoryFilter || urgencyFilter || search) && (

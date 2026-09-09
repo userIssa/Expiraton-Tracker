@@ -219,12 +219,10 @@ export async function GET(request: Request) {
           ? Math.round((urgencyCounts.safe / (urgencyCounts.critical + urgencyCounts.warning + urgencyCounts.safe)) * 100)
           : 0,
       },
-      categoryValues: [
-        { category: 'Dairy', value: Math.round(categoryValues['Dairy'] || 0) },
-        { category: 'Bakery', value: Math.round(categoryValues['Bakery'] || 0) },
-        { category: 'Meat & Seafood', value: Math.round(categoryValues['Meat & Seafood'] || 0) },
-        { category: 'Canned Goods', value: Math.round(categoryValues['Canned Goods'] || 0) },
-      ],
+      categoryValues: Object.entries(categoryValues).map(([category, value]) => ({
+        category,
+        value: Math.round(value || 0),
+      })),
       lossTrend,
       topLossProducts,
     });

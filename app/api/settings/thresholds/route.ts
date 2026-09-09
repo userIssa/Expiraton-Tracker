@@ -11,13 +11,7 @@ export async function GET(request: Request) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    if (!['manager', 'quality-assurance', 'superadmin'].includes(user.role)) {
-      return NextResponse.json(
-        { error: 'Forbidden: only managers and admins can edit thresholds' },
-        { status: 403 }
-      );
-    }
-
+    // All authenticated roles (store-hand, supervisor, manager, QA, admin) can read categories and thresholds
     await dbConnect();
     const thresholds = await CategoryThreshold.find().sort({ category: 1 });
     return NextResponse.json(thresholds);
