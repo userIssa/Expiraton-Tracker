@@ -11,10 +11,14 @@ import { calculateUrgencyColor } from '@/lib/urgency';
 import bcrypt from 'bcryptjs';
 
 export async function GET() {
-  // Only allow in development environment for safety
-  if (process.env.NODE_ENV !== 'development') {
+  // Strictly disable seed route on production or any remote MongoDB Atlas instance
+  if (
+    process.env.NODE_ENV !== 'development' ||
+    process.env.MONGODB_URI?.includes('mongodb.net') ||
+    process.env.DISABLE_SEED === 'true'
+  ) {
     return NextResponse.json(
-      { error: 'Seeding is only available in development mode' },
+      { error: 'Seeding is disabled on remote databases to protect production data.' },
       { status: 403 }
     );
   }
