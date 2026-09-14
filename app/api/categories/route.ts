@@ -20,16 +20,22 @@ export async function GET() {
     // 2. Fetch any distinct categories from products
     const productCategories: string[] = await Product.distinct('category');
 
-    // 3. Fallback standard defaults
-    const defaults = ['Dairy', 'Bakery', 'Meat & Seafood', 'Canned Goods'];
-
     const categorySet = new Set<string>();
-    defaults.forEach((c) => categorySet.add(c));
-    thresholdCategories.forEach((c) => {
-      if (c) categorySet.add(c);
-    });
+
+    if (thresholdCategories.length === 0) {
+      // Fallback standard defaults only when no thresholds are configured yet
+      const defaults = ['Dairy', 'Bakery', 'Meat & Seafood', 'Canned Goods'];
+      defaults.forEach((c) => categorySet.add(c));
+    } else {
+      thresholdCategories.forEach((c) => {
+        if (c) categorySet.add(c);
+      });
+    }
+
     productCategories.forEach((c) => {
-      if (c && typeof c === 'string') categorySet.add(c.trim());
+      if (c && typeof c === 'string' && c.trim() !== 'Uncategorized') {
+        categorySet.add(c.trim());
+      }
     });
 
     const categories = Array.from(categorySet).sort((a, b) => a.localeCompare(b));

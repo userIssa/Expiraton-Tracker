@@ -33,6 +33,10 @@ export default function CategoryThresholdsPage() {
   const [newOrange, setNewOrange] = useState('7');
   const [newRed, setNewRed] = useState('3');
 
+  // Delete modal state
+  const [deletingCategory, setDeletingCategory] = useState<Threshold | null>(null);
+  const [deleteLoading, setDeleteLoading] = useState(false);
+
   const fetchThresholds = () => {
     fetch('/api/settings/thresholds')
       .then((res) => {
@@ -66,6 +70,42 @@ export default function CategoryThresholdsPage() {
 
   const cancelEdit = () => {
     setEditingId(null);
+  };
+
+  const openDeleteModal = (t: Threshold) => {
+    setDeletingCategory(t);
+    setError('');
+    setSuccess('');
+  };
+
+  const closeDeleteModal = () => {
+    setDeletingCategory(null);
+  };
+
+  const handleDeleteCategory = async () => {
+    if (!deletingCategory) return;
+    setDeleteLoading(true);
+    setError('');
+    setSuccess('');
+
+    try {
+      const res = await fetch(`/api/settings/thresholds?id=${deletingCategory._id}`, {
+        method: 'DELETE',
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Failed to delete category');
+
+      setSuccess(`Category "${deletingCategory.category}" deleted successfully!`);
+      if (editingId === deletingCategory._id) {
+        setEditingId(null);
+      }
+      closeDeleteModal();
+      fetchThresholds();
+    } catch (err: any) {
+      setError(err.message);
+    } finally {
+      setDeleteLoading(false);
+    }
   };
 
   const handleSave = async (e: React.FormEvent) => {
@@ -213,12 +253,21 @@ export default function CategoryThresholdsPage() {
                         <p className="text-xs text-on-surface-variant font-medium">Active monitoring limits</p>
                       </div>
                       
-                      <button
-                        onClick={() => startEdit(t)}
-                        className="px-3 py-1 bg-surface-container-high hover:bg-surface-container-highest text-on-surface text-xs font-bold rounded cursor-pointer transition-colors"
-                      >
-                        Edit
-                      </button>
+                      <div className="flex items-center gap-1.5">
+                        <button
+                          onClick={() => startEdit(t)}
+                          className="px-3 py-1 bg-surface-container-high hover:bg-surface-container-highest text-on-surface text-xs font-bold rounded cursor-pointer transition-colors"
+                        >
+                          Edit
+                        </button>
+                        <button
+                          onClick={() => openDeleteModal(t)}
+                          className="p-1 text-on-surface-variant hover:text-urgency-red-text hover:bg-urgency-red-bg rounded cursor-pointer transition-colors"
+                          title={`Delete ${t.category}`}
+                        >
+                          <span className="material-symbols-outlined text-[18px]">delete</span>
+                        </button>
+                      </div>
                     </div>
 
                     <div className="grid grid-cols-4 gap-2 text-center text-xs pt-2">
@@ -439,6 +488,41 @@ export default function CategoryThresholdsPage() {
                 </form>
               </div>
             )}
+          </div>
+        )}
+
+        {/* Delete Category Confirmation Modal */}
+        {deletingCategory && (
+          <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4 backdrop-blur-xs">
+            <div className="bg-surface border border-outline-variant w-full max-w-md rounded-xl shadow-lg p-6 relative overflow-hidden animate-scale-up">
+              <div className="absolute top-0 left-0 w-full h-1.5 bg-urgency-red-border"></div>
+              <div className="flex items-center gap-2 mb-2 text-urgency-red-text">
+                <span className="material-symbols-outlined text-[24px]">delete_forever</span>
+                <h2 className="text-xl font-bold text-on-surface">Delete Category</h2>
+              </div>
+              <p className="text-xs text-on-surface-variant mb-4 leading-relaxed">
+                Are you sure you want to delete category <span className="font-bold text-on-surface">&quot;{deletingCategory.category}&quot;</span>? This will remove this category and its alert thresholds. Any products currently assigned to this category will be updated to &quot;Uncategorized&quot;.
+              </p>
+
+              <div className="flex gap-2 justify-end pt-2">
+                <button
+                  type="button"
+                  onClick={closeDeleteModal}
+                  disabled={deleteLoading}
+                  className="px-4 py-2 border border-outline-variant hover:bg-surface-container-low rounded font-bold text-xs cursor-pointer text-on-surface"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="button"
+                  onClick={handleDeleteCategory}
+                  disabled={deleteLoading}
+                  className="px-4 py-2 bg-urgency-red-bg border border-urgency-red-border text-urgency-red-text hover:bg-urgency-red-text hover:text-white rounded font-bold text-xs cursor-pointer disabled:opacity-50 transition-colors"
+                >
+                  {deleteLoading ? 'Deleting...' : 'Delete Category'}
+                </button>
+              </div>
+            </div>
           </div>
         )}
       </main>

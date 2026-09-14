@@ -220,7 +220,7 @@ export default function RegisterBatchPage() {
         cost: productCost ? Number(productCost) : undefined,
       },
       batchNumber,
-      quantity: Number(quantity),
+      quantity: 1,
       location,
       purchaseDate,
       manufactureDate,
@@ -603,7 +603,7 @@ export default function RegisterBatchPage() {
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
                 <label className="block text-xs font-bold uppercase tracking-wider text-on-surface-variant mb-1 font-mono">
                   Batch Number
@@ -620,32 +620,17 @@ export default function RegisterBatchPage() {
 
               <div>
                 <label className="block text-xs font-bold uppercase tracking-wider text-on-surface-variant mb-1 font-mono">
-                  Quantity Received
+                  Storage Location / Zone
                 </label>
                 <input
-                  type="number"
-                  value={quantity}
-                  onChange={(e) => setQuantity(e.target.value)}
+                  type="text"
+                  value={location}
+                  onChange={(e) => setLocation(e.target.value)}
                   required
-                  min={1}
-                  placeholder="e.g. 50"
+                  placeholder="e.g. Cold-A2, Shelf-B3"
                   className="block w-full px-3 py-2 border border-outline-variant rounded bg-surface-container-lowest text-on-surface text-sm focus:outline-none focus:border-secondary focus:ring-1 focus:ring-secondary transition-all"
                 />
               </div>
-            </div>
-
-            <div>
-              <label className="block text-xs font-bold uppercase tracking-wider text-on-surface-variant mb-1 font-mono">
-                Storage Location / Zone
-              </label>
-              <input
-                type="text"
-                value={location}
-                onChange={(e) => setLocation(e.target.value)}
-                required
-                placeholder="e.g. Cold-A2, Shelf-B3"
-                className="block w-full px-3 py-2 border border-outline-variant rounded bg-surface-container-lowest text-on-surface text-sm focus:outline-none focus:border-secondary focus:ring-1 focus:ring-secondary transition-all"
-              />
             </div>
 
             <div className="grid grid-cols-3 gap-2 md:gap-4">
@@ -772,7 +757,7 @@ export default function RegisterBatchPage() {
                 <span className="text-[11px] text-on-surface-variant font-medium">Applied to rows missing category or location</span>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-1">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 pt-1">
                 <div>
                   <label className="block text-[10px] font-bold uppercase tracking-wider text-on-surface-variant mb-1 font-mono">
                     Target Category
@@ -797,19 +782,6 @@ export default function RegisterBatchPage() {
                     value={defaultImportLocation}
                     onChange={(e) => setDefaultImportLocation(e.target.value)}
                     placeholder="Dry Warehouse"
-                    className="block w-full px-3 py-2 border border-outline-variant rounded bg-surface-container-lowest text-on-surface text-sm focus:outline-none focus:border-secondary"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-[10px] font-bold uppercase tracking-wider text-on-surface-variant mb-1 font-mono">
-                    Default Quantity
-                  </label>
-                  <input
-                    type="number"
-                    min="1"
-                    value={defaultImportQuantity}
-                    onChange={(e) => setDefaultImportQuantity(Math.max(1, Number(e.target.value) || 1))}
                     className="block w-full px-3 py-2 border border-outline-variant rounded bg-surface-container-lowest text-on-surface text-sm focus:outline-none focus:border-secondary"
                   />
                 </div>

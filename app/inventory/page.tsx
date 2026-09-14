@@ -48,7 +48,7 @@ export default function InventoryPage() {
 
   // Action Modals State
   const [selectedBatch, setSelectedBatch] = useState<Batch | null>(null);
-  const [modalType, setModalType] = useState<'clear' | 'escalate' | null>(null);
+  const [modalType, setModalType] = useState<'clear' | 'escalate' | 'delete' | null>(null);
   const [clearReason, setClearReason] = useState<'sold' | 'used' | 'discarded'>('sold');
   const [clearNote, setClearNote] = useState('');
   const [escalateAssignee, setEscalateAssignee] = useState('');
@@ -149,7 +149,7 @@ export default function InventoryPage() {
     }
   }, [supervisors, escalateAssignee]);
 
-  const openActionModal = (batch: Batch, type: 'clear' | 'escalate') => {
+  const openActionModal = (batch: Batch, type: 'clear' | 'escalate' | 'delete') => {
     setSelectedBatch(batch);
     setModalType(type);
     setActionError('');
@@ -163,6 +163,29 @@ export default function InventoryPage() {
   const closeActionModal = () => {
     setSelectedBatch(null);
     setModalType(null);
+  };
+
+  const handleDeleteSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!selectedBatch) return;
+
+    setActionLoading(true);
+    setActionError('');
+    try {
+      const res = await fetch(`/api/batches/${selectedBatch._id}`, {
+        method: 'DELETE',
+      });
+
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Failed to delete batch');
+
+      closeActionModal();
+      fetchBatches();
+    } catch (err: any) {
+      setActionError(err.message);
+    } finally {
+      setActionLoading(false);
+    }
   };
 
   const handleClearSubmit = async (e: React.FormEvent) => {
@@ -485,6 +508,13 @@ export default function InventoryPage() {
                                 </button>
                               </>
                             )}
+                            <button
+                              onClick={() => openActionModal(batch, 'delete')}
+                              className="text-on-surface-variant hover:text-urgency-red-text transition-colors p-1 cursor-pointer"
+                              title="Delete Error Entry"
+                            >
+                              <span className="material-symbols-outlined text-[20px]">delete</span>
+                            </button>
                             <Link
                               href={`/inventory/${batch._id}`}
                               className="text-on-surface-variant hover:text-secondary transition-colors p-1"
@@ -648,6 +678,48 @@ export default function InventoryPage() {
                   className="px-4 py-2 bg-primary text-on-primary hover:opacity-90 rounded font-bold text-xs cursor-pointer disabled:opacity-50"
                 >
                   {actionLoading ? 'Escalating...' : 'Submit Escalation'}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* Delete Batch Confirmation Modal */}
+      {modalType === 'delete' && selectedBatch && (
+        <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4 backdrop-blur-xs">
+          <div className="bg-surface border border-outline-variant w-full max-w-md rounded-xl shadow-lg p-6 relative overflow-hidden animate-scale-up">
+            <div className="absolute top-0 left-0 w-full h-1.5 bg-urgency-red-border"></div>
+            <div className="flex items-center gap-2 mb-2 text-urgency-red-text">
+              <span className="material-symbols-outlined text-[24px]">delete_forever</span>
+              <h2 className="text-xl font-bold text-on-surface">Delete Inventory Entry</h2>
+            </div>
+            <p className="text-xs text-on-surface-variant mb-4 leading-relaxed">
+              Are you sure you want to delete <span className="font-bold text-on-surface">{selectedBatch.productId.name}</span> (Batch #{selectedBatch.batchNumber})? This error correction cannot be undone and will permanently remove this batch and its audit trail.
+            </p>
+
+            {actionError && (
+              <div className="mb-4 bg-urgency-red-bg border border-urgency-red-border text-urgency-red-text rounded p-3 text-xs flex items-center gap-2">
+                <span className="material-symbols-outlined text-[16px]">error</span>
+                <span className="font-semibold">{actionError}</span>
+              </div>
+            )}
+
+            <form onSubmit={handleDeleteSubmit} className="space-y-4">
+              <div className="flex gap-2 justify-end pt-2">
+                <button
+                  type="button"
+                  onClick={closeActionModal}
+                  className="px-4 py-2 border border-outline-variant hover:bg-surface-container-low rounded font-bold text-xs cursor-pointer text-on-surface"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  disabled={actionLoading}
+                  className="px-4 py-2 bg-urgency-red-bg border border-urgency-red-border text-urgency-red-text hover:bg-urgency-red-text hover:text-white rounded font-bold text-xs cursor-pointer disabled:opacity-50 transition-colors"
+                >
+                  {actionLoading ? 'Deleting...' : 'Delete Permanently'}
                 </button>
               </div>
             </form>

@@ -112,3 +112,73 @@ export async function PUT(request: Request) {
     );
   }
 }
+
+export async function DELETE(request: Request) {
+  try {
+    const user = await getCurrentUser();
+    if (!user) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
+    if (!['manager', 'quality-assurance', 'superadmin'].includes(user.role)) {
+      return NextResponse.json(
+        { error: 'Forbidden: only managers and admins can delete categories' },
+        { status: 403 }
+      );
+    }
+
+    await dbConnect();
+
+    // Support id or category via searchParams or request body
+    const url = new URL(request.url);
+    let id = url.searchParams.get('id');
+    let categoryName = url.searchParams.get('category');
+
+    if (!id && !categoryName) {
+      try {
+        const body = await request.json();
+        if (body?.id) id = body.id;
+        if (body?.category) categoryName = body.category;
+      } catch {}
+    }
+
+    if (!id && !categoryName) {
+      return NextResponse.json(
+        { error: 'Category ID or category name is required' },
+        { status: 400 }
+      );
+    }
+
+    let deletedThreshold = null;
+    if (id) {
+      deletedThreshold = await CategoryThreshold.findByIdAndDelete(id);
+    } else if (categoryName) {
+      deletedThreshold = await CategoryThreshold.findOneAndDelete({
+        category: { $regex: new RegExp(`^${categoryName.trim()}$`, 'i') },
+      });
+    }
+
+    const removedCategory = deletedThreshold ? deletedThreshold.category : (categoryName || '');
+
+    // If there are products referencing this category, reassign them to 'Uncategorized'
+    if (removedCategory) {
+      const ProductModel = (await import('@/lib/models/Product')).default;
+      await ProductModel.updateMany(
+        { category: removedCategory },
+        { category: 'Uncategorized' }
+      );
+    }
+
+    return NextResponse.json({
+      success: true,
+      message: `Category "${removedCategory}" deleted successfully.`,
+      deleted: deletedThreshold,
+    });
+  } catch (error: any) {
+    console.error('DELETE thresholds settings error:', error);
+    return NextResponse.json(
+      { error: 'Internal server error', details: error.message },
+      { status: 500 }
+    );
+  }
+}

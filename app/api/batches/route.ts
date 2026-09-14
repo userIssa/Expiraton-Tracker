@@ -112,7 +112,6 @@ export async function POST(request: Request) {
     // Check required batch parameters
     if (
       !batchNumber ||
-      quantity === undefined ||
       !location ||
       !purchaseDate ||
       !manufactureDate ||
@@ -188,7 +187,7 @@ export async function POST(request: Request) {
     const newBatch = await Batch.create({
       productId: productDoc._id,
       batchNumber: batchNumber.trim(),
-      quantity: Number(quantity),
+      quantity: quantity !== undefined && Number(quantity) > 0 ? Number(quantity) : 1,
       location: location.trim(),
       purchaseDate: new Date(purchaseDate),
       manufactureDate: new Date(manufactureDate),

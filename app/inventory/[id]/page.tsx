@@ -56,7 +56,7 @@ export default function BatchDetailPage({ params }: { params: Promise<{ id: stri
   const [currentUser, setCurrentUser] = useState<any>(null);
 
   // Modals state
-  const [modalType, setModalType] = useState<'clear' | 'escalate' | null>(null);
+  const [modalType, setModalType] = useState<'clear' | 'escalate' | 'delete' | null>(null);
   const [clearReason, setClearReason] = useState<'sold' | 'used' | 'discarded'>('sold');
   const [clearNote, setClearNote] = useState('');
   const [supervisors, setSupervisors] = useState<any[]>([]);
@@ -115,7 +115,7 @@ export default function BatchDetailPage({ params }: { params: Promise<{ id: stri
     }
   }, [supervisors, escalateAssignee]);
 
-  const openActionModal = (type: 'clear' | 'escalate') => {
+  const openActionModal = (type: 'clear' | 'escalate' | 'delete') => {
     setModalType(type);
     setActionError('');
     setClearNote('');
@@ -127,6 +127,28 @@ export default function BatchDetailPage({ params }: { params: Promise<{ id: stri
 
   const closeActionModal = () => {
     setModalType(null);
+  };
+
+  const handleDeleteSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!batch) return;
+
+    setActionLoading(true);
+    setActionError('');
+    try {
+      const res = await fetch(`/api/batches/${batch._id}`, {
+        method: 'DELETE',
+      });
+
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Failed to delete batch');
+
+      closeActionModal();
+      router.push('/inventory');
+    } catch (err: any) {
+      setActionError(err.message);
+      setActionLoading(false);
+    }
   };
 
   const handleClearSubmit = async (e: React.FormEvent) => {
@@ -295,24 +317,33 @@ export default function BatchDetailPage({ params }: { params: Promise<{ id: stri
             </div>
             
             {/* Quick Actions Panel */}
-            {batch.status !== 'cleared' && (
-              <div className="flex gap-2">
-                <button
-                  onClick={() => openActionModal('clear')}
-                  className="px-4 py-2 bg-[#146c2e] text-on-primary font-bold text-xs rounded hover:opacity-90 transition-opacity cursor-pointer flex items-center gap-1.5"
-                >
-                  <span className="material-symbols-outlined text-[16px] fill-icon">check_circle</span>
-                  <span>Mark Cleared</span>
-                </button>
-                <button
-                  onClick={() => openActionModal('escalate')}
-                  className="px-4 py-2 bg-primary text-on-primary font-bold text-xs rounded hover:opacity-90 transition-opacity cursor-pointer flex items-center gap-1.5"
-                >
-                  <span className="material-symbols-outlined text-[16px]">warning</span>
-                  <span>Raise Escalation</span>
-                </button>
-              </div>
-            )}
+            <div className="flex flex-wrap gap-2">
+              {batch.status !== 'cleared' && (
+                <>
+                  <button
+                    onClick={() => openActionModal('clear')}
+                    className="px-4 py-2 bg-[#146c2e] text-on-primary font-bold text-xs rounded hover:opacity-90 transition-opacity cursor-pointer flex items-center gap-1.5 shadow-xs"
+                  >
+                    <span className="material-symbols-outlined text-[16px] fill-icon">check_circle</span>
+                    <span>Mark Cleared</span>
+                  </button>
+                  <button
+                    onClick={() => openActionModal('escalate')}
+                    className="px-4 py-2 bg-primary text-on-primary font-bold text-xs rounded hover:opacity-90 transition-opacity cursor-pointer flex items-center gap-1.5 shadow-xs"
+                  >
+                    <span className="material-symbols-outlined text-[16px]">warning</span>
+                    <span>Raise Escalation</span>
+                  </button>
+                </>
+              )}
+              <button
+                onClick={() => openActionModal('delete')}
+                className="px-4 py-2 bg-urgency-red-bg border border-urgency-red-border text-urgency-red-text hover:bg-urgency-red-text hover:text-white font-bold text-xs rounded transition-colors cursor-pointer flex items-center gap-1.5 shadow-xs"
+              >
+                <span className="material-symbols-outlined text-[16px]">delete</span>
+                <span>Delete Batch</span>
+              </button>
+            </div>
           </div>
         </div>
 
@@ -597,6 +628,48 @@ export default function BatchDetailPage({ params }: { params: Promise<{ id: stri
                   className="px-4 py-2 bg-primary text-on-primary hover:opacity-90 rounded font-bold text-xs cursor-pointer disabled:opacity-50"
                 >
                   {actionLoading ? 'Escalating...' : 'Submit Escalation'}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* Delete Batch Confirmation Modal */}
+      {modalType === 'delete' && (
+        <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4 backdrop-blur-xs">
+          <div className="bg-surface border border-outline-variant w-full max-w-md rounded-xl shadow-lg p-6 relative overflow-hidden animate-scale-up">
+            <div className="absolute top-0 left-0 w-full h-1.5 bg-urgency-red-border"></div>
+            <div className="flex items-center gap-2 mb-2 text-urgency-red-text">
+              <span className="material-symbols-outlined text-[24px]">delete_forever</span>
+              <h2 className="text-xl font-bold text-on-surface">Delete Batch Entry</h2>
+            </div>
+            <p className="text-xs text-on-surface-variant mb-4 leading-relaxed">
+              Are you sure you want to delete <span className="font-bold text-on-surface">{batch.productId.name}</span> (Batch #{batch.batchNumber})? This error correction cannot be undone and will permanently remove this batch and its audit trail.
+            </p>
+
+            {actionError && (
+              <div className="mb-4 bg-urgency-red-bg border border-urgency-red-border text-urgency-red-text rounded p-3 text-xs flex items-center gap-2">
+                <span className="material-symbols-outlined text-[16px]">error</span>
+                <span className="font-semibold">{actionError}</span>
+              </div>
+            )}
+
+            <form onSubmit={handleDeleteSubmit} className="space-y-4">
+              <div className="flex gap-2 justify-end pt-2">
+                <button
+                  type="button"
+                  onClick={closeActionModal}
+                  className="px-4 py-2 border border-outline-variant hover:bg-surface-container-low rounded font-bold text-xs cursor-pointer text-on-surface"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  disabled={actionLoading}
+                  className="px-4 py-2 bg-urgency-red-bg border border-urgency-red-border text-urgency-red-text hover:bg-urgency-red-text hover:text-white rounded font-bold text-xs cursor-pointer disabled:opacity-50 transition-colors"
+                >
+                  {actionLoading ? 'Deleting...' : 'Delete Permanently'}
                 </button>
               </div>
             </form>

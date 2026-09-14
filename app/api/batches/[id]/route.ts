@@ -5,6 +5,7 @@ import Product from '@/lib/models/Product';
 import User from '@/lib/models/User';
 import CategoryThreshold from '@/lib/models/CategoryThreshold';
 import StatusHistory from '@/lib/models/StatusHistory';
+import Escalation from '@/lib/models/Escalation';
 import { calculateUrgencyColor } from '@/lib/urgency';
 import { getCurrentUser } from '@/lib/session';
 
@@ -129,6 +130,39 @@ export async function PATCH(
     return NextResponse.json(updatedBatch);
   } catch (error: any) {
     console.error('PATCH batch error:', error);
+    return NextResponse.json(
+      { error: 'Internal server error', details: error.message },
+      { status: 500 }
+    );
+  }
+}
+
+export async function DELETE(
+  request: Request,
+  context: { params: Promise<{ id: string }> }
+) {
+  try {
+    const user = await getCurrentUser();
+    if (!user) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
+    const { id } = await context.params;
+    await dbConnect();
+
+    const batch = await Batch.findById(id);
+    if (!batch) {
+      return NextResponse.json({ error: 'Batch not found' }, { status: 404 });
+    }
+
+    // Cascade delete related records
+    await StatusHistory.deleteMany({ batchId: id });
+    await Escalation.deleteMany({ batchId: id });
+    await Batch.findByIdAndDelete(id);
+
+    return NextResponse.json({ success: true, message: 'Batch deleted successfully' });
+  } catch (error: any) {
+    console.error('DELETE batch error:', error);
     return NextResponse.json(
       { error: 'Internal server error', details: error.message },
       { status: 500 }
