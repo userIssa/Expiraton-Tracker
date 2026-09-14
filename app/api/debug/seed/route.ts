@@ -68,6 +68,22 @@ export async function GET() {
         assignedLocations: [],
         notifyByEmail: true,
       },
+      {
+        name: 'Desmond Hart',
+        email: 'desmond.hart@example.com',
+        passwordHash,
+        role: 'store-hand',
+        assignedLocations: ['Warehouse A', 'Zone B', 'DRY'],
+        notifyByEmail: true,
+      },
+      {
+        name: 'Toluwani Oderinde',
+        email: 'toluwanimioderinde@gmail.com',
+        passwordHash,
+        role: 'superadmin',
+        assignedLocations: [],
+        notifyByEmail: true,
+      },
     ]);
 
     const storehand = users.find((u: any) => u.role === 'store-hand');
